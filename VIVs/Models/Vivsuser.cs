@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -23,6 +25,8 @@ namespace VIVs.Models
         public string Confirmpassword { get; set; }
         public decimal? Phonenumber { get; set; }
         public string Image { get; set; }
+        [NotMapped]
+        public virtual IFormFile ImageFile { get; set; }
         public string Gender { get; set; }
         public bool? Isdeleted { get; set; }
         public string Status { get; set; }
