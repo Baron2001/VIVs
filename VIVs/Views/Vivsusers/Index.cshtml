@@ -1,131 +1,229 @@
 ﻿@model IEnumerable<VIVs.Models.Vivsuser>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Archive Page";
+    Layout = "~/Views/Shared/Dashboard_Layout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Fullname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Confirmpassword)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phonenumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Isdeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Verifycode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Establishmentnationalnumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Otherscategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estabname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categorytype)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fullname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Confirmpassword)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phonenumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Isdeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Verifycode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Establishmentnationalnumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Otherscategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estabname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categorytype.Categoryid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City.Cityid)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Userid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Userid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Userid">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-header pb-0">
+        <h6 style="padding-left: 20px;padding-top: 20px;">Archive</h6>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Provider Info</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Establishment Info</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phonenumber</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address</th>
+                <th class="text-secondary opacity-7">rer</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var item in Model) {
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div>
+                        <img src=@Url.Content("~/Images/"+@item.Image) class="avatar avatar-sm me-3" alt="user1" style="width:700px;height:300px;" />
+@*                        <img src=@Url.Content("~/Images/"+@item.ImagePath) class="avatar avatar-sm me-3" alt="user1">*@
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">@item.Fullname</h6>
+                        <p class="text-xs text-secondary mb-0">@item.Email</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">@item.Estabname</p>
+                    <p class="text-xs text-secondary mb-0">@item.Establishmentnationalnumber</p>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">@item.Phonenumber</span>
+                  </td>
+                  @if (@item.Status == "Accept")
+                  {
+                      <td class="align-middle text-center text-sm">
+                          <span class="badge badge-sm bg-gradient-success">Accept</span>
+                      </td>
+                  }
+                  else
+                  {
+                    <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm bg-gradient-secondary">Reject</span>
+                    </td>
+                  }
+                  @if(@item.Categorytype.Categoryname !="Others")
+                  {
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">@item.Categorytype.Categoryname</span>
+                    </td>
+                  }
+                  else
+                  {
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">@item.Otherscategory</span>
+                    </td>
+                  }
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">@item.City.City</p>
+                    <p class="text-xs text-secondary mb-0">@item.Address</p>
+                  </td>
+                  <td class="align-middle">
+                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              }
+              @*<tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="~/Login-Register-assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user2">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">Alexa Liras</h6>
+                      <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">Programator</p>
+                  <p class="text-xs text-secondary mb-0">Developer</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
+                </td>
+                <td class="align-middle">
+                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="~/Login-Register-assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user3">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">Laurent Perrier</h6>
+                      <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">Executive</p>
+                  <p class="text-xs text-secondary mb-0">Projects</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-success">Online</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
+                </td>
+                <td class="align-middle">
+                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="~/Login-Register-assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user4">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">Michael Levi</h6>
+                      <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">Programator</p>
+                  <p class="text-xs text-secondary mb-0">Developer</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-success">Online</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
+                </td>
+                <td class="align-middle">
+                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="~/Login-Register-assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">Richard Gran</h6>
+                      <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">Manager</p>
+                  <p class="text-xs text-secondary mb-0">Executive</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
+                </td>
+                <td class="align-middle">
+                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="~/Login-Register-assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">Miriam Eric</h6>
+                      <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">Programtor</p>
+                  <p class="text-xs text-secondary mb-0">Developer</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
+                </td>
+                <td class="align-middle">
+                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                    Edit
+                  </a>
+                </td>
+              </tr>*@
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

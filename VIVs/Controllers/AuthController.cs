@@ -25,7 +25,7 @@ namespace VIVs.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(Vivsuser User, string Email, string password, string Estabname)
+        public IActionResult Register(Vivsuser User, string Email, string password, string Estabname ,string Status)
         {
             var user = _context.Vivslogins.Where(x => x.Email == Email).SingleOrDefault();
             if (user != null)
@@ -50,6 +50,7 @@ namespace VIVs.Controllers
                     User.Image = fileName;
                 }
                 HttpContext.Session.Remove("message");
+                User.Status = "Waiting";
                 _context.Add(User);
                 _context.SaveChangesAsync();
                 Vivslogin Login = new Vivslogin();
@@ -87,7 +88,6 @@ namespace VIVs.Controllers
                     switch (auth.Rolesid)
                     {
                         case 1: //As Admin 
-                            //HttpContext.Session.SetInt32("LoginId", (int)auth.LoginId);
                             HttpContext.Session.SetInt32("AdminId", (int)auth.Usersid);
                             HttpContext.Session.SetString("AdminName", auth.Users.Fullname);
                             if (auth.Users.Image != null)
@@ -97,7 +97,6 @@ namespace VIVs.Controllers
                             return RedirectToAction("AdminDashBoard", "DashBoard");
 
                         case 2: //As Provider
-                            //HttpContext.Session.SetInt32("LoginId", (int)auth.LoginId);
                             HttpContext.Session.SetInt32("ProviderId", (int)auth.Usersid);
                             HttpContext.Session.SetString("ProviderName", auth.Users.Fullname);
                             if (auth.Users.Image != null)
@@ -108,26 +107,16 @@ namespace VIVs.Controllers
                             return RedirectToAction("ProviderDashBoard", "DashBoard");
 
                         case 3: //As Receiver 
-                            HttpContext.Session.SetInt32("UserId", (int)auth.Usersid);
-                            HttpContext.Session.SetString("UserName", auth.Users.Fullname);
+                            HttpContext.Session.SetInt32("ReceiverId", (int)auth.Usersid);
+                            HttpContext.Session.SetString("ReceiverName", auth.Users.Fullname);
                             if (auth.Users.Image != null)
                             {
-                                HttpContext.Session.SetString("UserImage", auth.Users.Image);
+                                HttpContext.Session.SetString("ReceiverImage", auth.Users.Image);
                             }
-                            HttpContext.Session.SetString("UserEmail", auth.Email);
+                            HttpContext.Session.SetString("ReceiverEmail", auth.Email);
                             return RedirectToAction("Home", "Home");
                     }
                     HttpContext.Session.Remove("messageLogIn");
-                    //HttpContext.Session.SetInt32("Admin_Id", (int)auth.Userid);
-                    //HttpContext.Session.SetString("Admin_Name", auth.Email);
-                    //HttpContext.Session.SetString("Admin_Image", auth.User.UserImage);
-                    //HttpContext.Session.SetInt32("Customer_Id", (int)auth.Customersid);
-                    //HttpContext.Session.SetString("Customer_Name", auth.Customers.Firstname);
-                    //if (auth.Customers.Customerimage != null)
-                    //{
-                    //    HttpContext.Session.SetString("Customer_Image", auth.Customers.Customerimage);
-                    //}
-                    //HttpContext.Session.SetString("Customer_Email", auth.Email);
                     return RedirectToAction("Index", "Home");
                 }
                 else
