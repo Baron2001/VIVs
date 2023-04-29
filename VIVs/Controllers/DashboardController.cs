@@ -24,7 +24,7 @@ namespace VIVs.Controllers
         }
         public IActionResult ProviderArchive()
         {
-            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Accept" || s.Status == "Reject" ).ToList();
+            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => (s.Status == "Accept" || s.Status == "Reject") && s.Estabname!=null).ToList();
             //var Rolesses = _context.Rolesses.ToList();
 
             //ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
@@ -45,19 +45,19 @@ namespace VIVs.Controllers
         }
         public IActionResult ProviderRequests()
         {
-            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Waiting").ToList();
+            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Waiting" && s.Estabname != null).ToList();
 
             return View(User);
         }
         public IActionResult ReceiverArchive()
         {
-            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Accept" || s.Status == "Reject").ToList();
+            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Accept" || s.Status == "Reject" && s.Estabname == null).ToList();
 
             return View(User);
         }
         public IActionResult ReceiverRequests()
         {
-            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Waiting").ToList();
+            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Waiting" && s.Estabname == null).ToList();
 
             return View(User);
         }
