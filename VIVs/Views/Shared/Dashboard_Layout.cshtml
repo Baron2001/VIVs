@@ -31,7 +31,6 @@
   <link href="~/Login-Register-assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="~/Login-Register-assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
-
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -101,7 +100,7 @@
             <span class="nav-link-text ms-1">Receiver Archive</span>
           </a>
         </li>
-        <li class="nav-item">
+@*        <li class="nav-item">
           <a class="nav-link " href="../pages/tables.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
@@ -116,16 +115,59 @@
             </div>
             <span class="nav-link-text ms-1">Billing</span>
           </a>
-        </li>
-
+        </li>*@
         <li class="nav-item">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Pages 
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item"  href="~/Dashboard/Home"> <i class="fa fa-home text-success text-sm opacity-10"></i>Home</a></li>
+                <li><a class="dropdown-item" asp-action="About" asp-controller="Dashboard" asp-route-id="1"><i class="fa fa-buysellads text-success text-sm opacity-10"></i>About Us</a></li>
+                <li><a class="dropdown-item" asp-action="Contact" asp-controller="Dashboard" ><i class="fa fa-connectdevelop text-success text-sm opacity-10"></i>Contact Us</a></li>
+              </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="~/Dashboard/Home">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-home text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " asp-action="About" asp-controller="Dashboard" asp-route-id="1">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-buysellads text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">About Us</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " asp-action="Contact" asp-controller="Dashboard" >
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-connectdevelop text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Contact Us</span>
+          </a>
+        </li>
+@*        <li class="nav-item">
+          <a class="nav-link " asp-action="Testimonials" asp-controller="Dashboard" >
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-comment-o text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Testimonials</span>
+          </a>
+        </li>*@
+@*        <li class="nav-item">
           <a class="nav-link " href="../pages/rtl.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">RTL</span>
           </a>
-        </li>
+        </li>*@
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -262,7 +304,7 @@
                   document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                <a class="font-weight-bold" >VIV`S Tim</a>
                 for a better web.
               </div>
             </div>
@@ -328,17 +370,6 @@
           <div class="form-check form-switch ps-0 ms-auto my-auto">
             <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
           </div>
-        </div>
-        
-        <div class="w-100 text-center">
-          
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Argon%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fargon-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/argon-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
         </div>
       </div>
     </div>
@@ -445,7 +476,8 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="~/Login-Register-assets/js/argon-dashboard.min.js?v=2.0.4"></script>
-
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
-
 </html>

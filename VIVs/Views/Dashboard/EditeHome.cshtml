@@ -1,0 +1,77 @@
+﻿@model VIVs.Models.Vivshome
+
+@{
+    ViewData["Title"] = "EditeHome";
+    Layout = "~/Views/Shared/Dashboard_Layout.cshtml";
+}
+<div class="main-content position-relative max-height-vh-100 h-100">
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="d-flex align-items-center">
+                
+              </div>
+            </div>
+            <div class="card-body">
+              <form asp-action="EditeHome" enctype="multipart/form-data">
+                <p class="text-uppercase text-sm">Home Information</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="ImageFile1" for="example-text-input" class="form-control-label">Image 1</label>
+                      <input asp-for="ImageFile1" style="height: 64px;" class="form-control" type="file" >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Title1" for="example-text-input" class="form-control-label">Title 1</label>
+                      <textarea asp-for="Title3" class="form-control" type="text" rows="2"> @Model.Title1</textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="ImageFile2" for="example-text-input" class="form-control-label">Image 2</label>
+                      <input asp-for="ImageFile2" style="height: 64px;" class="form-control" type="file" >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Title2" for="example-text-input" class="form-control-label">Title 2</label>
+                      <textarea asp-for="Title3" class="form-control" type="text" rows="2"> @Model.Title2</textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="ImageFile3" for="example-text-input" class="form-control-label">Image 3</label>
+                      <input asp-for="ImageFile3" style="height: 64px;" class="form-control" type="file" >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Title3" for="example-text-input" class="form-control-label">Title 3</label>
+                      <textarea asp-for="Title3" class="form-control" type="text" rows="2"> @Model.Title3</textarea>
+                    </div>
+                  </div>
+                </div>
+                <hr class="horizontal dark">
+                <div class="form-group" style="display:flex;justify-content: center;">
+                    <input type="submit" value="Save" class="btn btn-primary col-md-3" />
+                </div>
+              </form>
+                <div>
+                    <a asp-action="Home"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back to Home</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+@*  target="_blank" *@
+
+<br />
+
+
