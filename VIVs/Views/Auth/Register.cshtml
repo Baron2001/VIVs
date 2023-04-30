@@ -4,6 +4,10 @@
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/Login-Register_Layout.cshtml";
 }
+<style>.hidden {
+  display: none;
+}</style>
+
 <main class="main-content  mt-0">
     <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
         <span class="mask bg-gradient-dark opacity-6"></span>
@@ -24,6 +28,19 @@
                     <div class="card-header text-center pt-4">
                         <h5>Register Form</h5>
                     </div>
+                    <!-- Default switch -->
+<label class="switch" style="text-align:center">
+  <input type="checkbox" onclick="dotoggle()" checked>
+  <span class="slider round"></span>
+</label>
+
+
+
+
+
+
+
+
                     @*            <div class="row px-xl-5 px-sm-4 px-3">
                     <div class="col-3 ms-auto px-1">
                     <a class="btn btn-outline-light w-100" href="javascript:;">
@@ -73,11 +90,38 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mb-3">
                                 <label asp-for="Fullname" for="example-text-input" class="form-control-label">Fullname</label>
-                                <input asp-for="Fullname" type="text" class="form-control" placeholder="Fullname" aria-label="Fullname" required>
+                                <input asp-for="Fullname"  id="name" name="name"   pattern="^([^ ]+ ){3,}[^ ]+$" title="Please enter your name in the format: First Last Surname Last" type="text" class="form-control" placeholder="Fullname" aria-label="Fullname" required>
                                 <span asp-validation-for="Fullname" class="text-danger"></span>
+                                <div id="error-message" style="  color: red;
+  font-size: 12px;
+  margin-top: 5px;" class="hidden">Please enter your name in the correct format: First Last Surname Last</div>
                             </div>
 
-                            <div class="row">
+                            <script>
+const nameInput = document.getElementById("name");
+const errorMessage = document.getElementById("error-message");
+
+nameInput.addEventListener("input", () => {
+  if (nameInput.validity.patternMismatch) {
+    errorMessage.classList.remove("hidden");
+  } else {
+    errorMessage.classList.add("hidden");
+  }
+});
+</script>
+<style>
+.hidden {
+  display: none;
+  
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+</style>
+
+                            <div class="row" >
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Email" for="example-text-input" class="form-control-label">Email</label>
@@ -127,28 +171,32 @@
                                         <span asp-validation-for="Gender" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                              
+                             
+                                <div class="col-md-6" id="hideme">
                                     <div class="form-group">
                                         <label asp-for="Estabname" for="example-text-input" class="form-control-label">Estabname</label>
                                         <input asp-for="Estabname" type="text" class="form-control" placeholder="Estabname" aria-label="Estabname" onfocus="focused(this)" onfocusout="defocused(this)">
                                         <span asp-validation-for="Estabname" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="hideme1" >
                                     <div class="form-group">
                                         <label asp-for="Establishmentnationalnumber" for="example-text-input" class="form-control-label">Establishmentnationalnumber</label>
                                         <input asp-for="Establishmentnationalnumber" type="number" class="form-control" placeholder="Establishmentnationalnumber" aria-label="Establishmentnationalnumber" onfocus="focused(this)" onfocusout="defocused(this)">
                                         <span asp-validation-for="Establishmentnationalnumber" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                
+                               
+                                <div class="col-md-6" id="hideme2">
                                     <div class="form-group">
                                         <label asp-for="Categorytypeid" for="example-text-input" class="form-control-label">Categorytype</label>
                                         <select asp-for="Categorytypeid" class="form-control" asp-items="ViewBag.Categorytypeid" onfocus="focused(this)" onfocusout="defocused(this)"></select>
                                         @*<input  onfocus="focused(this)" onfocusout="defocused(this)">*@
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="hideme3">
                                     <div class="form-group">
                                         <label asp-for="Otherscategory" for="example-text-input" class="form-control-label">Others category</label>
                                         <input asp-for="Otherscategory" type="text" class="form-control" placeholder="Otherscategory" aria-label="Otherscategory" onfocus="focused(this)" onfocusout="defocused(this)">
@@ -156,13 +204,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" id="hideme4">
                                         <label asp-for="Cityid" for="example-text-input" class="form-control-label"></label>
                                         <select asp-for="Cityid" class="form-control" asp-items="ViewBag.Cityid" onfocus="focused(this)" onfocusout="defocused(this)"></select>
                                         @* <input  onfocus="focused(this)" onfocusout="defocused(this)">*@
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="hideme5">
                                     <div class="form-group">
                                         <label asp-for="Address" for="example-text-input" class="form-control-label">Info Address</label>
                                         <input asp-for="Address" type="text" class="form-control" placeholder="Info Address" aria-label="Address" onfocus="focused(this)" onfocusout="defocused(this)">
@@ -192,70 +240,14 @@
                                         });
                                 }
 
+
+
                             </script>
+                           
 
 
 
-
-                            @*                <div class="mb-3">
-                            <input asp-for="Email" type="email" class="form-control" placeholder="Email" aria-label="Email">
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Username" type="text" class="form-control" placeholder="Username" aria-label="Username">
-                            <span asp-validation-for="Username" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" aria-label="Password">
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Confirmpassword" type="password" class="form-control" placeholder="Confirmpassword" aria-label="Confirmpassword">
-                            <span asp-validation-for="Confirmpassword" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Phonenumber" type="tel" class="form-control" placeholder="Phonenumber" aria-label="Phonenumber">
-                            <span asp-validation-for="Phonenumber" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="ImageFile" type="file" class="form-control" placeholder="ImageFile" aria-label="ImageFile">
-                            <span asp-validation-for="ImageFile" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Gender" type="text" class="form-control" placeholder="Gender" aria-label="Gender">
-                            <span asp-validation-for="Gender" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Estabname" type="text" class="form-control" placeholder="Estabname" aria-label="Estabname">
-                            <span asp-validation-for="Estabname" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Establishmentnationalnumber" type="text" class="form-control" placeholder="Establishmentnationalnumber" aria-label="Establishmentnationalnumber">
-                            <span asp-validation-for="Establishmentnationalnumber" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Otherscategory" type="text" class="form-control" placeholder="Otherscategory" aria-label="Otherscategory">
-                            <span asp-validation-for="Otherscategory" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            <input asp-for="Address" type="text" class="form-control" placeholder="Info Address" aria-label="Address">
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                            ///*                  <input asp-for="Categorytypeid" type="password" class="form-control" placeholder="Password" aria-label="Password">
-                            *//                  <select asp-for="Categorytypeid" class ="form-control" asp-items="ViewBag.Categorytypeid"></select>
-                            </div>
-                            <div class="mb-3">
-                            ////*<input asp-for="" type="password" class="form-control" placeholder="Password" aria-label="Password">*////
-                            <select asp-for="Cityid" class ="form-control" asp-items="ViewBag.Cityid"></select>
-                            </div>*@
-
-                            @*                <div class="form-check form-check-info text-start">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                            <label class="form-check-label" for="flexCheckDefault">
-                            I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                            </label>
-                            </div>*@
+                          
                             @if (ViewBag.error != null)
                 {
                     <p style="color:red">@ViewBag.error</p>
@@ -326,101 +318,53 @@
         </div>
     </div>
 </footer>
-<!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-@*
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Fullname" class="control-label"></label>
-                <input asp-for="Fullname" class="form-control" />
-                <span asp-validation-for="Fullname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" type="email"/>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Confirmpassword" class="control-label"></label>
-                <input asp-for="Confirmpassword" class="form-control" />
-                <span asp-validation-for="Confirmpassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phonenumber" class="control-label"></label>
-                <input asp-for="Phonenumber" class="form-control" />
-                <span asp-validation-for="Phonenumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Isdeleted" class="control-label"></label>
-                <input asp-for="Isdeleted" class="form-control" />
-                <span asp-validation-for="Isdeleted" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Verifycode" class="control-label"></label>
-                <input asp-for="Verifycode" class="form-control" />
-                <span asp-validation-for="Verifycode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Establishmentnationalnumber" class="control-label"></label>
-                <input asp-for="Establishmentnationalnumber" class="form-control" />
-                <span asp-validation-for="Establishmentnationalnumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Otherscategory" class="control-label"></label>
-                <input asp-for="Otherscategory" class="form-control" />
-                <span asp-validation-for="Otherscategory" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Categorytypeid" class="control-label"></label>
-                <select asp-for="Categorytypeid" class ="form-control" asp-items="ViewBag.Categorytypeid"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cityid" class="control-label"></label>
-                <select asp-for="Cityid" class ="form-control" asp-items="ViewBag.Cityid"></select>
-             </div>
-            <div class="form-group">
-                <label asp-for="Estabname" class="control-label"></label>
-                <input asp-for="Estabname" class="form-control" />
-                <span asp-validation-for="Estabname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
 
-*@
+
+
+<script>
+    function dotoggle() {
+   elem = document.getElementById("hideme")
+  if (elem.style.display == "none") {
+    elem.style.display = "block";
+  } else {
+    elem.style.display = "none";
+  }
+
+     elem = document.getElementById("hideme1")
+  if (elem.style.display == "none") {
+    elem.style.display = "block";
+  } else {
+    elem.style.display = "none";
+  }
+       elem = document.getElementById("hideme2")
+  if (elem.style.display == "none") {
+    elem.style.display = "block";
+  } else {
+    elem.style.display = "none";
+  }
+       elem = document.getElementById("hideme3")
+  if (elem.style.display == "none") {
+    elem.style.display = "block";
+  } else {
+    elem.style.display = "none";
+  }
+
+       elem = document.getElementById("hideme4")
+  if (elem.style.display == "none") {
+    elem.style.display = "block";
+  } else {
+    elem.style.display = "none";
+  }
+       elem = document.getElementById("hideme5")
+  if (elem.style.display == "none") {
+    elem.style.display = "block";
+  } else {
+    elem.style.display = "none";
+  }
+
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+                
