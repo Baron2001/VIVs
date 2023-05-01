@@ -30,7 +30,7 @@ namespace VIVs.Controllers
         }
         public IActionResult ProviderArchive()
         {
-            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => (s.Status == "Accept" || s.Status == "Reject") && s.Estabname!=null).ToList();
+            var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => (s.Status == "Accept" || s.Status == "Reject") && s.Estabname != null).ToList();
             //var Rolesses = _context.Rolesses.ToList();
 
             //ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
