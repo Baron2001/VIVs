@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
@@ -20,6 +21,8 @@ namespace VIVs.Controllers
         }
         public IActionResult Register()
         {
+            ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryname");
+            ViewData["Cityid"] = new SelectList(_context.Vivscities, "Cityid", "City");
             ViewBag.error = HttpContext.Session.GetString("message");
             HttpContext.Session.Remove("message");
             return View();
@@ -27,6 +30,8 @@ namespace VIVs.Controllers
         [HttpPost]
         public IActionResult Register(Vivsuser User, string Email, string password, string Estabname ,string Status)
         {
+            ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryname");
+            ViewData["Cityid"] = new SelectList(_context.Vivscities, "Cityid", "City");
             var user = _context.Vivslogins.Where(x => x.Email == Email).SingleOrDefault();
             if (user != null)
             {

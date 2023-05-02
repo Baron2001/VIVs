@@ -4,9 +4,10 @@
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/Login-Register_Layout.cshtml";
 }
-<style>.hidden {
-  display: none;
-}</style>
+<style>
+    .hidden {
+        display: none;
+    }</style>
 
 <main class="main-content  mt-0">
     <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
@@ -26,13 +27,25 @@
             <div class="col-xl-7 col-lg-5 col-md-9 mx-auto">
                 <div class="card z-index-0">
                     <div class="card-header text-center pt-4">
-                        <h5>Register Form</h5>
+                        <h5>Select Your Account Type</h5>
                     </div>
                     <!-- Default switch -->
+                    @*   <div style="display: flex; justify-content:center">
+                    <span> provider</span>
                     <label class="switch" style="text-align:center">
-                      <input type="checkbox" onclick="dotoggle()" checked>
-                      <span class="slider round"></span>
-                    </label>
+                    <input type="checkbox" onclick="dotoggle()" checked>
+                    <span class="slider round"></span>
+                    </label> <span> provider</span></div>*@
+
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" onclick="dotoggle()" name="btnradio" id="btnradio1" autocomplete="on" checked>
+                        <label class="btn btn-outline-primary" for="btnradio1">Provider</label>
+
+
+
+                        <input type="radio" class="btn-check" name="btnradio" onclick="dotoggle()" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio3">Receiver</label>
+                    </div>
 
                     @*            <div class="row px-xl-5 px-sm-4 px-3">
                     <div class="col-3 ms-auto px-1">
@@ -83,39 +96,40 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mb-3">
                                 <label asp-for="Fullname" for="example-text-input" class="form-control-label">Fullname</label>
-                                <input asp-for="Fullname"  id="name" name="name"   pattern="^([^ ]+ ){3,}[^ ]+$" title="Please enter your name in the format: First Last Surname Last" type="text" class="form-control" placeholder="Fullname" aria-label="Fullname" required>
+                                <input asp-for="Fullname" id="name" name="name" pattern="^([^ ]+ ){3,}[^ ]+$" title="Please enter your name in the format: First Last Surname Last" type="text" class="form-control" placeholder="Fullname" aria-label="Fullname" required>
                                 <span asp-validation-for="Fullname" class="text-danger"></span>
                                 <div id="error-message" style="  color: red;
                                     font-size: 12px;
-                                    margin-top: 5px;" class="hidden">Please enter your name in the correct format: First Last Surname Last
+                                    margin-top: 5px;" class="hidden">
+                                    Please enter your name in the correct format: First Last Surname Last
                                 </div>
                             </div>
-                            
+
                             <script>
                                 const nameInput = document.getElementById("name");
                                 const errorMessage = document.getElementById("error-message");
-                                
+
                                 nameInput.addEventListener("input", () => {
-                                  if (nameInput.validity.patternMismatch) {
-                                    errorMessage.classList.remove("hidden");
-                                  } else {
-                                    errorMessage.classList.add("hidden");
-                                  }
+                                    if (nameInput.validity.patternMismatch) {
+                                        errorMessage.classList.remove("hidden");
+                                    } else {
+                                        errorMessage.classList.add("hidden");
+                                    }
                                 });
                             </script>
                             <style>
                                 .hidden {
-                                  display: none;
-                                  
+                                    display: none;
                                 }
+
                                 .error-message {
-                                  color: red;
-                                  font-size: 12px;
-                                  margin-top: 5px;
+                                    color: red;
+                                    font-size: 12px;
+                                    margin-top: 5px;
                                 }
                             </style>
-                            
-                            <div class="row" >
+
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Email" for="example-text-input" class="form-control-label">Email</label>
@@ -158,15 +172,40 @@
                                         <span asp-validation-for="ImageFile" class="text-danger"></span>
                                     </div>
                                 </div>
+                                @* <div class="col-md-6">
+                                <div class="form-group">
+                                <label asp-for="Gender" for="example-text-input" class="form-control-label">Gender</label>
+                                <input asp-for="Gender" type="text" class="form-control" placeholder="Gender" aria-label="Gender" onfocus="focused(this)" onfocusout="defocused(this)" required>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                                </div>
+                                </div>*@
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label asp-for="Gender" for="example-text-input" class="form-control-label">Gender</label>
-                                        <input asp-for="Gender" type="text" class="form-control" placeholder="Gender" aria-label="Gender" onfocus="focused(this)" onfocusout="defocused(this)" required>
+                                        <label asp-for="Gender" class="form-control-label">Gender</label>
+                                        <select asp-for="Gender" class="form-control" required>
+                                            <option value="">Select a gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                     
+                                        </select>
                                         <span asp-validation-for="Gender" class="text-danger"></span>
                                     </div>
                                 </div>
-                              
-                             
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Cityid" for="example-text-input" class="form-control-label"></label>
+                                        <select asp-for="Cityid" class="form-control" asp-items="ViewBag.Cityid" onfocus="focused(this)" onfocusout="defocused(this)"></select>
+                                        @* <input  onfocus="focused(this)" onfocusout="defocused(this)">*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Address" for="example-text-input" class="form-control-label">Info Address</label>
+                                        <input asp-for="Address" type="text" class="form-control" placeholder="Info Address" aria-label="Address" onfocus="focused(this)" onfocusout="defocused(this)">
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6" id="hideme">
                                     <div class="form-group">
                                         <label asp-for="Estabname" for="example-text-input" class="form-control-label">Estabname</label>
@@ -174,15 +213,15 @@
                                         <span asp-validation-for="Estabname" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="hideme1" >
+                                <div class="col-md-6" id="hideme1">
                                     <div class="form-group">
                                         <label asp-for="Establishmentnationalnumber" for="example-text-input" class="form-control-label">Establishmentnationalnumber</label>
                                         <input asp-for="Establishmentnationalnumber" type="number" class="form-control" placeholder="Establishmentnationalnumber" aria-label="Establishmentnationalnumber" onfocus="focused(this)" onfocusout="defocused(this)">
                                         <span asp-validation-for="Establishmentnationalnumber" class="text-danger"></span>
                                     </div>
                                 </div>
-                                
-                               
+
+
                                 <div class="col-md-6" id="hideme2">
                                     <div class="form-group">
                                         <label asp-for="Categorytypeid" for="example-text-input" class="form-control-label">Categorytype</label>
@@ -190,27 +229,29 @@
                                         @*<input  onfocus="focused(this)" onfocusout="defocused(this)">*@
                                     </div>
                                 </div>
-                                <div class="col-md-6" id="hideme3">
+                                <div class="col-md-6" id="OtherCat" style="display:none">
                                     <div class="form-group">
                                         <label asp-for="Otherscategory" for="example-text-input" class="form-control-label">Others category</label>
                                         <input asp-for="Otherscategory" type="text" class="form-control" placeholder="Otherscategory" aria-label="Otherscategory" onfocus="focused(this)" onfocusout="defocused(this)">
                                         <span asp-validation-for="Otherscategory" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group" id="hideme4">
-                                        <label asp-for="Cityid" for="example-text-input" class="form-control-label"></label>
-                                        <select asp-for="Cityid" class="form-control" asp-items="ViewBag.Cityid" onfocus="focused(this)" onfocusout="defocused(this)"></select>
-                                        @* <input  onfocus="focused(this)" onfocusout="defocused(this)">*@
-                                    </div>
-                                </div>
-                                <div class="col-md-6" id="hideme5">
-                                    <div class="form-group">
-                                        <label asp-for="Address" for="example-text-input" class="form-control-label">Info Address</label>
-                                        <input asp-for="Address" type="text" class="form-control" placeholder="Info Address" aria-label="Address" onfocus="focused(this)" onfocusout="defocused(this)">
-                                        <span asp-validation-for="Address" class="text-danger"></span>
-                                    </div>
-                                </div>
+
+                                <script>
+                                    const selectElement = document.querySelector("#Categorytypeid");
+                                    const otherCatDiv = document.querySelector("#OtherCat");
+
+                                    selectElement.addEventListener("change", (event) => {
+                                        const selectedValue = event.target.value;
+                                        if (selectedValue === "Others") {
+                                            otherCatDiv.style.display = "none";
+                                        }
+                                        else {
+                                            otherCatDiv.style.display = "block";
+                                        }
+                                    });
+                                </script>
+
 
 
                             </div>
@@ -229,12 +270,28 @@
                                     }
                                     else
                                         $("#confirm").css('border-color', "#d2d6da");
-                                        $("#textboxid").css({
-                                            "background-color": "#fee2e2"
-                                        });
+                                    $("#textboxid").css({
+                                        "background-color": "#fee2e2"
+                                    });
                                 }
+
+                                $(document).ready(function() {
+                                    $('form').submit(function(event) {
+                                        var password = $("#password").val();
+                                        var confirm_password = $("#confirm").val();
+
+                                        if (password != confirm_password) {
+                                            $("#confirm").css('border-color', "#c80000");
+                                            $("#textboxid").css({
+                                                "background-color": "#fee2e2"
+                                            });
+                                            alert('password not match');
+                                            event.preventDefault(); // Prevent form submission
+                                        }
+                                    });
+                                });
                             </script>
-                                                  
+
                             @if (ViewBag.error != null)
                             {
                                 <p style="color:red">@ViewBag.error</p>
@@ -311,47 +368,30 @@
 
 <script>
     function dotoggle() {
-   elem = document.getElementById("hideme")
-  if (elem.style.display == "none") {
-    elem.style.display = "block";
-  } else {
-    elem.style.display = "none";
-  }
+        var providerBtn = document.getElementById("btnradio1");
+        var receiverBtn = document.getElementById("btnradio3");
 
-     elem = document.getElementById("hideme1")
-  if (elem.style.display == "none") {
-    elem.style.display = "block";
-  } else {
-    elem.style.display = "none";
-  }
-       elem = document.getElementById("hideme2")
-  if (elem.style.display == "none") {
-    elem.style.display = "block";
-  } else {
-    elem.style.display = "none";
-  }
-       elem = document.getElementById("hideme3")
-  if (elem.style.display == "none") {
-    elem.style.display = "block";
-  } else {
-    elem.style.display = "none";
-  }
+        if (receiverBtn.checked) {
+            // Hide the element with ID "hideme"
+            document.getElementById("hideme").style.display = "none";
+            document.getElementById("hideme1").style.display = "none";
+            document.getElementById("hideme2").style.display = "none";
+            document.getElementById("hideme3").style.display = "none";
+        } else {
+            // Show the element with ID "hideme"
+            document.getElementById("hideme").style.display = "block";
+            document.getElementById("hideme1").style.display = "block";
+            document.getElementById("hideme2").style.display = "block";
+            document.getElementById("hideme3").style.display = "block";
+        }
 
-       elem = document.getElementById("hideme4")
-  if (elem.style.display == "none") {
-    elem.style.display = "block";
-  } else {
-    elem.style.display = "none";
-  }
-       elem = document.getElementById("hideme5")
-  if (elem.style.display == "none") {
-    elem.style.display = "block";
-  } else {
-    elem.style.display = "none";
-  }
+        // Add any other elements that you want to show/hide based on the button selection
+    }
 
-}
+    function dotoggle1() {
+        var OtherCat = document.getElementById("OtherCat");
+
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-                

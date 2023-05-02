@@ -68,6 +68,7 @@ namespace VIVs.Controllers
             }
             ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryid", vivsuser.Categorytypeid);
             ViewData["Cityid"] = new SelectList(_context.Vivscities, "Cityid", "Cityid", vivsuser.Cityid);
+            
             return View(vivsuser);
         }
 
