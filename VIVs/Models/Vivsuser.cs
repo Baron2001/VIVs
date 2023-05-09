@@ -16,6 +16,14 @@ namespace VIVs.Models
             Vivsposts = new HashSet<Vivspost>();
             Vivstestimonials = new HashSet<Vivstestimonial>();
         }
+        [NotMapped]
+        public string FirstName { get; set; }
+        [NotMapped]
+        public string MiddleName { get; set; }
+        [NotMapped]
+        public string Surname { get; set; }
+        [NotMapped]
+        public string LastName { get; set; }
 
         public decimal Userid { get; set; }
         public string Fullname { get; set; }

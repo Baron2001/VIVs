@@ -28,7 +28,7 @@ namespace VIVs.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(Vivsuser User, string Email, string password, string Estabname ,string Status)
+        public IActionResult Register(Vivsuser User, string Email, string password, string Estabname ,string Status, string FirstName, string MiddleName, string Surname, string LastName)
         {
             ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryname");
             ViewData["Cityid"] = new SelectList(_context.Vivscities, "Cityid", "City");
@@ -42,6 +42,8 @@ namespace VIVs.Controllers
             }
             if (ModelState.IsValid)
             {
+           
+
                 if (User.ImageFile != null)
                 {
                     string wwwRootPath = _webHostEnvironment.WebRootPath; // wwwroot 
@@ -56,6 +58,8 @@ namespace VIVs.Controllers
                 }
                 HttpContext.Session.Remove("message");
                 User.Status = "Waiting";
+                string full = FirstName + " " + MiddleName + " " + Surname + " " +LastName;
+                User.Fullname = full;
                 _context.Add(User);
                 _context.SaveChangesAsync();
                 Vivslogin Login = new Vivslogin();
@@ -99,7 +103,7 @@ namespace VIVs.Controllers
                             {
                                 HttpContext.Session.SetString("AdminImage", auth.Users.Image);
                             }
-                            return RedirectToAction("AdminDashBoard", "DashBoard");
+                            return RedirectToAction("Admin", "DashBoard");
 
                         case 2: //As Provider
                             HttpContext.Session.SetInt32("ProviderId", (int)auth.Usersid);
