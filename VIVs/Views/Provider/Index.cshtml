@@ -1,0 +1,67 @@
+﻿@model IEnumerable<VIVs.Models.Vivspost>
+
+@{
+    ViewData["Title"] = "Provider Page";
+    Layout = "~/Views/Shared/Provider_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-header pb-0">
+          <div class="d-flex justify-content-between">
+            <h6 style="padding-left: 20px;padding-top: 20px;">Posts</h6>
+            <div class="col-6 text-end">
+                <a asp-action="Create" asp-controller="Provider"  class="btn bg-gradient-dark mb-0" style="margin:10px; background-image: linear-gradient(310deg, #353c6b 0%, #212529 100%);"><i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;&nbsp;Create Post</a>
+            </div>
+          </div>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number Of Item</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Deadline</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Post Date</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                <th class="text-secondary opacity-7"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var item in Model) {
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">@item.Numberofitem</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">@item.Deadline</p>
+                  </td>
+                  <td class="align-middle ">
+                    <span class="text-secondary text-xs font-weight-bold">@item.Postdate</span>
+                  </td>
+@*                  <td class="align-middle text-center text-sm">
+                    <span class="badge badge-sm" style="background-image: linear-gradient(310deg, #d11212 0%, #b54343 100%);">Waiting</span>
+                  </td>*@
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">@item.Description</p>
+                  </td>
+                  <td class="align-middle ">
+                    <a class="btn btn-link text-dark px-3 mb-0" asp-action="PostEdit" asp-controller="Provider"  asp-route-id="@item.Postid"><i class="fas fa-pencil-alt text-black me-2" aria-hidden="true"></i>Edit</a>
+                    <a class="btn btn-link text-danger px-3 mb-0" asp-action="Isdeleted" asp-controller="Provider"  asp-route-id="@item.Postid"><i class="fas fa-pencil-alt text-danger me-2" aria-hidden="true"></i>Deleted</a>
+                    @*<a class="btn btn-link text-danger px-3 mb-0" asp-action="ProviderRejectStatus" asp-controller="Dashboard"  asp-route-id="@item.Userid"><i class="fas fa-pencil-alt text-danger me-2" aria-hidden="true"></i>Reject</a>*@
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br /><br /><br /><br />

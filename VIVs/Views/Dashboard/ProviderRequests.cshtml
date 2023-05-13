@@ -28,7 +28,7 @@
                 <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
-                      @if(@item.Image != null)
+                      @if(@item.Image != null )
                       {
                         <div>
                           <img src=@Url.Content("~/Images/"+@item.Image) class="avatar avatar-sm me-3" alt="user1" style="width:700px;height:300px;" />
@@ -49,7 +49,7 @@
                     <span class="text-secondary text-xs font-weight-bold">@item.Phonenumber</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm" style="background-image: linear-gradient(310deg, #d1c512 0%, #ddd619 100%);">Waiting</span>
+                    <span class="badge badge-sm" style="background-image: linear-gradient(310deg, #d11212 0%, #b54343 100%);">Waiting</span>
                   </td>
                   @if(@item.Categorytype.Categoryname !="Others")
                   {
@@ -68,8 +68,8 @@
                     <p class="text-xs text-secondary mb-0">@item.Address</p>
                   </td>
                   <td class="align-middle ">
-
-                    <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit Status</a>
+                    <a class="btn btn-link text-success px-3 mb-0" asp-action="ProviderAcceptStatus" asp-controller="Dashboard"  asp-route-id="@item.Userid"><i class="fas fa-pencil-alt text-success me-2" aria-hidden="true"></i>Accept</a>
+                    <a class="btn btn-link text-danger px-3 mb-0" asp-action="ProviderRejectStatus" asp-controller="Dashboard"  asp-route-id="@item.Userid"><i class="fas fa-pencil-alt text-danger me-2" aria-hidden="true"></i>Reject</a>
                   </td>
                 </tr>
               }
