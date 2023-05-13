@@ -19,6 +19,7 @@ namespace VIVs.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
+        ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult Register()
         {
             ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryname");
@@ -83,8 +84,13 @@ namespace VIVs.Controllers
             }
             return View(User);
         }
-
-
+        ///////////////////////////////////////////////////////////////////////////////////////
+        public IActionResult Login()
+        {
+            ViewBag.error = HttpContext.Session.GetString("messageLogIn");
+            HttpContext.Session.Remove("messageLogIn");
+            return View();
+        }
         [HttpPost]
         public IActionResult Login(Vivslogin login)
         {
@@ -94,36 +100,45 @@ namespace VIVs.Controllers
                 var auth = _context.Vivslogins.Include(z => z.Users).Where(x =>  x.Email == login.Email && x.Password == login.Password).SingleOrDefault();
                 if (auth != null)
                 {
-                    switch (auth.Rolesid)
+                    if (auth.Users.Status == "Accept")
                     {
-                        case 1: //As Admin 
-                            HttpContext.Session.SetInt32("AdminId", (int)auth.Usersid);
-                            HttpContext.Session.SetString("AdminName", auth.Users.Fullname);
-                            if (auth.Users.Image != null)
-                            {
-                                HttpContext.Session.SetString("AdminImage", auth.Users.Image);
-                            }
-                            return RedirectToAction("Admin", "DashBoard");
-
-                        case 2: //As Provider
-                            HttpContext.Session.SetInt32("ProviderId", (int)auth.Usersid);
-                            HttpContext.Session.SetString("ProviderName", auth.Users.Fullname);
-                            if (auth.Users.Image != null)
-                            {
-                                HttpContext.Session.SetString("ProviderImage", auth.Users.Image);
-                            }
-                            HttpContext.Session.SetString("ProviderEmail", auth.Email);
-                            return RedirectToAction("ProviderDashBoard", "DashBoard");
-
-                        case 3: //As Receiver 
-                            HttpContext.Session.SetInt32("ReceiverId", (int)auth.Usersid);
-                            HttpContext.Session.SetString("ReceiverName", auth.Users.Fullname);
-                            if (auth.Users.Image != null)
-                            {
-                                HttpContext.Session.SetString("ReceiverImage", auth.Users.Image);
-                            }
-                            HttpContext.Session.SetString("ReceiverEmail", auth.Email);
-                            return RedirectToAction("Home", "Home");
+                        switch (auth.Rolesid)
+                        {
+                            case 1: //As Admin 
+                                HttpContext.Session.SetInt32("AdminId", (int)auth.Usersid);
+                                HttpContext.Session.SetString("AdminName", auth.Users.Fullname);
+                                if (auth.Users.Image != null)
+                                {
+                                    HttpContext.Session.SetString("AdminImage", auth.Users.Image);
+                                }
+                                return RedirectToAction("Admin", "DashBoard");
+                            case 2: //As Provider
+                                HttpContext.Session.SetInt32("ProviderId", (int)auth.Usersid);
+                                HttpContext.Session.SetString("ProviderName", auth.Users.Fullname);
+                                if (auth.Users.Image != null)
+                                {
+                                    HttpContext.Session.SetString("ProviderImage", auth.Users.Image);
+                                }
+                                HttpContext.Session.SetString("ProviderEmail", auth.Email);
+                                return RedirectToAction("Index", "Provider");
+                            case 3: //As Receiver 
+                                HttpContext.Session.SetInt32("ReceiverId", (int)auth.Usersid);
+                                HttpContext.Session.SetString("ReceiverName", auth.Users.Fullname);
+                                if (auth.Users.Image != null)
+                                {
+                                    HttpContext.Session.SetString("ReceiverImage", auth.Users.Image);
+                                }
+                                HttpContext.Session.SetString("ReceiverEmail", auth.Email);
+                                return RedirectToAction("Home", "Home");
+                        }
+                    }
+                    else if (auth.Users.Status == "Reject")
+                    {
+                        return RedirectToAction("PageReject", "Auth");
+                    }
+                    else
+                    {
+                        return RedirectToAction("PageWaiting", "Auth");
                     }
                     HttpContext.Session.Remove("messageLogIn");
                     return RedirectToAction("Index", "Home");
@@ -138,19 +153,23 @@ namespace VIVs.Controllers
             return View();
         }
 
-        public IActionResult Login()
-        {
-            ViewBag.error = HttpContext.Session.GetString("messageLogIn");
-            HttpContext.Session.Remove("messageLogIn");
-            return View();
-        }
+        ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult Logout()
         {
-
             //AuthenticationHttpContextExtensions.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Auth");
         }
+        /////////////////////////////////////////////////////////////////////////////////////// 
+        public IActionResult PageWaiting()
+        {
+            return View();
+        }
+        public IActionResult PageReject()
+        {
+            return View();
+        }
+        /////////////////////////////////////////////////////////////////////////////////////// 
 
         private bool UserExists(decimal id)
         {

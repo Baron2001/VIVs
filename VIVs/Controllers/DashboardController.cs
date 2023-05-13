@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
@@ -20,14 +21,81 @@ namespace VIVs.Controllers
             _context = context;
             _webHostEnviroment = webHostEnviroment;
         }
+        ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult Admin()
         {
             return View();
         }
-        public IActionResult Profile()
+        ///////////////////////////////////////////////////////////////////////////////////////
+        public async Task<IActionResult> Profile(decimal? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vivsuser = await _context.Vivsusers.FindAsync(id);
+            if (vivsuser == null)
+            {
+                return NotFound();
+            }
+            return View(vivsuser);
         }
+        // POST: Doccustomers/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(decimal id, Vivsuser vivsuser, string Password, string Email)
+        {
+            if (id != vivsuser.Userid)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (vivsuser.ImageFile != null)
+                {
+                    string wwwRootPath = _webHostEnviroment.WebRootPath; // wwwroot 
+                    string fileName = Guid.NewGuid().ToString() + "_" + vivsuser.ImageFile.FileName; // sffjhfbvjhbjskdnklnklnlk_picture 
+                    string path = Path.Combine(wwwRootPath + "/Images/", fileName); // wwwroot/image/filename
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        vivsuser.ImageFile.CopyTo(fileStream);
+                    }
+                    vivsuser.Image = fileName;
+                }
+                else
+                {
+                    var cat = _context.Vivsusers.Where(c => c.Userid == id);
+                    vivsuser.Image = cat.Select(u => u.Image).FirstOrDefault();
+                }
+                var login = _context.Vivslogins.Where(u => u.Usersid == id).FirstOrDefault();
+                if (Password != null)
+                {
+                    login.Password = Password;
+                }
+                if (Email != null)
+                {
+                    login.Email = Email;
+
+                }
+                vivsuser.Fullname = "VIVs";
+                vivsuser.Username = "VIVs";
+                vivsuser.Categorytypeid = 4;
+                vivsuser.Cityid = 1;
+                vivsuser.Status = "Accept";
+                vivsuser.Isdeleted = false;
+
+                _context.Update(login);
+                await _context.SaveChangesAsync();
+                _context.Update(vivsuser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Profile", "Dashboard");
+            }
+            return View(vivsuser);
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult ProviderArchive()
         {
             var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => (s.Status == "Accept" || s.Status == "Reject") && s.Estabname != null).ToList();
@@ -55,6 +123,45 @@ namespace VIVs.Controllers
 
             return View(User);
         }
+        public async Task<IActionResult> ProviderAcceptStatus(decimal id,  Vivsuser vivsuser)
+        {
+            var userList = _context.Vivsusers.Where(i => i.Userid == id).FirstOrDefault();
+
+            if (id != userList.Userid)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                vivsuser = userList;
+                vivsuser.Status = "Accept";
+                _context.Update(vivsuser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ProviderRequests", "Dashboard");
+            }
+            return View();
+        }
+        public async Task<IActionResult> ProviderRejectStatus(decimal id, Vivsuser vivsuser)
+        {
+            var userList = _context.Vivsusers.Where(i => i.Userid == id).FirstOrDefault();
+
+            if (id != userList.Userid)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                vivsuser = userList;
+                vivsuser.Status = "Reject";
+                _context.Update(vivsuser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ProviderRequests", "Dashboard");
+            }
+            return View();
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult ReceiverArchive()
         {
             var User = _context.Vivsusers.Include(v => v.Categorytype).Include(v => v.City).Where(s => s.Status == "Accept" || s.Status == "Reject" && s.Estabname == null).ToList();
@@ -67,19 +174,50 @@ namespace VIVs.Controllers
 
             return View(User);
         }
-        //public async Task<IActionResult> Testimonials()
-        //{
-        //    return View(await _context.Vivscontactus.ToListAsync());
-        //}
+        public async Task<IActionResult> ReceiverAcceptStatus(decimal id, Vivsuser vivsuser)
+        {
+            var userList = _context.Vivsusers.Where(i => i.Userid == id).FirstOrDefault();
+
+            if (id != userList.Userid)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                vivsuser = userList;
+                vivsuser.Status = "Accept";
+                _context.Update(vivsuser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ReceiverRequests", "Dashboard");
+            }
+            return View();
+        }
+        public async Task<IActionResult> ReceiverRejectStatus(decimal id, Vivsuser vivsuser)
+        {
+            var userList = _context.Vivsusers.Where(i => i.Userid == id).FirstOrDefault();
+
+            if (id != userList.Userid)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                vivsuser = userList;
+                vivsuser.Status = "Reject";
+                _context.Update(vivsuser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ReceiverRequests", "Dashboard");
+            }
+            return View();
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> Contact()
         {
             return View(await _context.Vivscontactus.ToListAsync());
         }
-        //public IActionResult About(decimal? id)
-        //{
-        //    var vivshome =  _context.Vivshomes.FindAsync(id);
-        //    return View(vivshome);
-        //}
+        ///////////////////////////////////////////////////////////////////////////////////////
         // GET: Vivsaboutus/Edit/5
         public async Task<IActionResult> About(decimal? id)
         {
@@ -95,10 +233,7 @@ namespace VIVs.Controllers
             }
             return View(vivsaboutu);
         }
-
         // POST: Vivsaboutus/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> About(decimal id, Vivsaboutu vivsaboutu)
@@ -115,15 +250,11 @@ namespace VIVs.Controllers
             }
             return View(vivsaboutu);
         }
-
+        ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult Home()
         {
             return View(_context.Vivshomes.FirstOrDefault());
         }
-        //public async Task<IActionResult> EditeHome(decimal? id)
-        //{
-        //    return View(await _context.Vivshomes.ToListAsync());
-        //}
         // GET: Vivshomes/Edit/5
         public async Task<IActionResult> EditeHome(decimal? id)
         {
@@ -142,8 +273,6 @@ namespace VIVs.Controllers
         }
 
         // POST: Vivshomes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditeHome(decimal id, Vivshome vivshome)
@@ -220,5 +349,12 @@ namespace VIVs.Controllers
             }
             return View(vivshome);
         }
+        ///////////////////////////////////////////////////////////////////////////////////////
+        
+
+
+
+
+
     }
 }
