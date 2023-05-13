@@ -2,26 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using VIVs.Models;
 
 namespace VIVs.Controllers
 {
     public class VivshomesController : Controller
     {
+        private readonly ILogger<VivshomesController> _logger;
         private readonly ModelContext _context;
-
-        public VivshomesController(ModelContext context)
+        private readonly IWebHostEnvironment _webHostEnviroment;
+        public VivshomesController(ILogger<VivshomesController> logger, ModelContext context, IWebHostEnvironment webHostEnvironment)
         {
+            _logger = logger;
             _context = context;
+            _webHostEnviroment = webHostEnvironment;
         }
 
+
+
         // GET: Vivshomes
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Vivshomes.ToListAsync());
+            var AboutUs = _context.Vivsaboutus.ToList();
+            var Contact = _context.Vivscontactus.ToList();
+            var Categories = _context.Vivscategories.ToList();
+            var Home = _context.Vivshomes.ToList();
+            var Post = _context.Vivsposts.ToList();
+            var City = _context.Vivscities.ToList();
+            var Users = _context.Vivsusers.ToList();
+            var model3 = Tuple.Create<IEnumerable<Vivsaboutu>, IEnumerable<Vivscontactu>, IEnumerable<Vivscategory>, IEnumerable<Vivshome>, IEnumerable<Vivspost>, IEnumerable<Vivscity>, IEnumerable<Vivsuser>>(AboutUs, Contact, Categories, Home, Post, City, Users);
+            return View(model3);
         }
 
         // GET: Vivshomes/Details/5
