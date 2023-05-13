@@ -1,8 +1,11 @@
 ﻿@model VIVs.Models.Vivspost
 
 @{
-    ViewData["Title"] = "PostEdit";
+    ViewData["Title"] = "Post Edit";
     Layout = "~/Views/Shared/Provider_Layout.cshtml";
+        var id = ViewBag.ProviderId;
+    var name = ViewBag.ProviderName;
+	var img = ViewBag.ProviderImage;
 }
 <div class="main-content position-relative max-height-vh-100 h-100">
     <div class="container-fluid py-4">

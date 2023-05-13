@@ -1,0 +1,149 @@
+﻿@model VIVs.Models.Vivsuser
+@{
+    ViewData["Title"] = "Profile Page";
+    Layout = "~/Views/Shared/Provider_Layout.cshtml";
+    var id = ViewBag.ProviderId;
+    var name = ViewBag.ProviderName;
+	var img = ViewBag.ProviderImage;
+}
+<div class="main-content position-relative max-height-vh-100 h-100">
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="d-flex align-items-center">
+                <div class="row" style="padding:20px;">
+            <div class="card-header pb-0 p-3" style="display: flex;">
+              @if(@Model.Image != null)
+              {  
+                <div class="col-auto">
+                  <div class="avatar avatar-xl position-relative">
+                    <img src=@Url.Content("~/Images/"+@Model.Image) class="w-100 border-radius-lg shadow-sm" alt="profile_image" />
+                  </div>
+                </div>
+              }
+              <div class="col-auto my-auto" style="margin-left: 19px;">
+                <div class="h-100">
+                  <h5 class="mb-1">@Model.Fullname </h5>
+                  <p class="mb-0 font-weight-bold text-sm"> @Model.Email  </p>
+                </div>
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form asp-action="Profile" enctype="multipart/form-data"> 
+                <p class="text-uppercase text-sm">User Information</p>
+                <input type="hidden" asp-for="Userid" />
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Fullname" for="example-text-input" class="form-control-label">Full Name</label>
+                      <input asp-for="Fullname" class="form-control" type="text" value="@Model.Fullname" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Username" for="example-text-input" class="form-control-label">User Name</label>
+                      <input asp-for="Username" class="form-control" type="text" value="@Model.Username" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Email" for="example-text-input" class="form-control-label">Email</label>
+                      <input asp-for="Email" class="form-control" type="email" value="@Model.Email" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Phonenumber" for="example-text-input" class="form-control-label">Phonenumber</label>
+                      <input asp-for="Phonenumber" class="form-control" type="tel" value="@Model.Phonenumber" required >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Password" for="example-text-input" class="form-control-label">Password</label>
+                      <input asp-for="Password" id="password" class="form-control" type="password" value="@Model.Password" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label asp-for="Confirmpassword" for="example-text-input" class="form-control-label">Confirm Password</label>
+                      <input asp-for="Confirmpassword" id="confirm" onChange="ppd();" class="form-control" type="password" value="@Model.Confirmpassword" required >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label asp-for="ImageFile" for="example-text-input" class="form-control-label">Image</label>
+                      <input asp-for="ImageFile" class="form-control" type="file"  >
+                    </div>
+                  </div>
+                  <div hidden="hidden" class="col-md-12">
+                    <div class="form-group">
+                      <label asp-for="Gender" for="example-text-input" class="form-control-label" hidden="hidden">Gender</label>
+                      <input asp-for="Gender" class="form-control" type="text"  value="@Model.Gender"  hidden="hidden">
+                    </div>
+                  </div>
+                </div>
+                <hr class="horizontal dark">
+                <div class="form-group" style="display:flex;justify-content: center;">
+                    <input type="submit" value="Save" class="btn btn-primary col-md-3" />
+                </div>
+                @*<p class="text-uppercase text-sm">About me</p>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label asp-for="Clinicname" for="example-text-input" class="form-control-label">About me</label>
+                      <input asp-for="Clinicname" class="form-control" type="text" value="@Model.Clinicname" >
+                    </div>
+                  </div>
+                </div>*@
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+           
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function ppd() {
+        var password = $("#password").val();
+        var confirm_password = $("#confirm").val();
+
+        if (password != confirm_password) {
+            $("#confirm").css('border-color', "#c80000");
+            $("#textboxid").css({
+                "background-color": "#fee2e2"
+            });
+            alert('password not match');
+        }
+        else
+            $("#confirm").css('border-color', "#d2d6da");
+        $("#textboxid").css({
+            "background-color": "#fee2e2"
+        });
+    }
+
+    $(document).ready(function() {
+        $('form').submit(function(event) {
+            var password = $("#password").val();
+            var confirm_password = $("#confirm").val();
+
+            if (password != confirm_password) {
+                $("#confirm").css('border-color', "#c80000");
+                $("#textboxid").css({
+                    "background-color": "#fee2e2"
+                });
+                alert('password not match');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>

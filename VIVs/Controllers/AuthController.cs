@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using VIVs.Models;
 
 namespace VIVs.Controllers
@@ -170,7 +172,100 @@ namespace VIVs.Controllers
             return View();
         }
         /////////////////////////////////////////////////////////////////////////////////////// 
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            ViewBag.errorReset = HttpContext.Session.GetString("messageReset");
+            HttpContext.Session.Remove("messageReset");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ResetPassword(string Email)
+        {
+            var user = _context.Vivsusers.Where(v => v.Email == Email).FirstOrDefault();
+            if (user != null)
+            {
+                // define the 4-digit range
+                int minNumber = 1000;
+                int maxNumber = 9999;
 
+                // generate a random number from the range
+                Random random = new Random();
+                int randomNumber = random.Next(minNumber, maxNumber + 1);
+
+                user.Verifycode = randomNumber.ToString();
+                _context.Update(user);
+                _context.SaveChangesAsync();
+                return RedirectToAction("SendCode", "Auth");
+            }
+            else
+            {
+                HttpContext.Session.SetString("messageReset", "Your Email is not valid");
+                ViewBag.errorReset = HttpContext.Session.GetString("messageReset");
+            }
+            return RedirectToAction("ResetPassword", "Auth");
+        }
+        ////////////////////////////////////////////////////////////////////////
+        [HttpGet]
+        public IActionResult SendCode()
+        {
+            ViewBag.errorSendCode = HttpContext.Session.GetString("messageSendCode");
+            HttpContext.Session.Remove("messageSendCode");
+            HttpContext.Session.Clear();
+            HttpContext.Session.GetInt32("UserSetId");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SendCode(string Verifycode)
+        {
+            var user = _context.Vivsusers.Where(v => v.Verifycode == Verifycode).FirstOrDefault();
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("UserSetId", (int)user.Userid);
+                return RedirectToAction("SetPass", "Auth");
+            }
+            else
+            {
+                HttpContext.Session.SetString("messageSendCode", "your code in wrong");
+                ViewBag.errorSendCode = HttpContext.Session.GetString("messageSendCode");
+            }
+            return RedirectToAction("SendCode", "Auth");
+        }
+        ///////////////////////////////////////////////////////////////////////
+        [HttpGet]
+        public IActionResult SetPass()
+        {
+            HttpContext.Session.GetInt32("UserSetId");
+            ViewBag.UserSetId = HttpContext.Session.GetInt32("UserSetId");
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SetPass(string Password, string Confirmpassword)
+        {
+            HttpContext.Session.GetInt32("UserSetId");
+            ViewBag.UserSetId = HttpContext.Session.GetInt32("UserSetId");
+            if (HttpContext.Session.GetInt32("UserSetId") != null)
+            {
+                var user = _context.Vivsusers.Where(v => v.Userid == HttpContext.Session.GetInt32("UserSetId")).FirstOrDefault();
+                user.Password = Password;
+                user.Confirmpassword = Confirmpassword;
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+
+                var Login = _context.Vivslogins.Where(v => v.Usersid == HttpContext.Session.GetInt32("UserSetId")).FirstOrDefault();
+                //Login.Email = Email;
+                Login.Password = Password;
+                Login.Usersid = HttpContext.Session.GetInt32("UserSetId");
+                _context.Update(Login);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Login", "Auth");
+            }
+            else 
+            {
+                return RedirectToAction("SendCode", "Auth");
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////
         private bool UserExists(decimal id)
         {
             return _context.Vivsusers.Any(e => e.Userid == id);

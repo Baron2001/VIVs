@@ -1,17 +1,8 @@
-﻿<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+﻿@{
+    var id = ViewBag.ProviderId;
+    var name = ViewBag.ProviderName;
+	var img = ViewBag.ProviderImage;
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +53,7 @@
           <hr class="horizontal dark mt-0">
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="~/Dashboard/Profile">
+          <a class="nav-link " asp-action="Profile" asp-controller="Provider"   asp-route-id="@id">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
