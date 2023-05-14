@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VIVs.Models;
+using EmailServices;
 
 namespace VIVs
 {
@@ -25,6 +26,11 @@ namespace VIVs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var emailConfig = Configuration.GetSection("EmailConfigration")
+                .Get<EmailConfigration>();
+            services.AddSingleton(emailConfig);
+
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddDbContext<ModelContext>(options => options.UseOracle(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSession(options =>
             {
