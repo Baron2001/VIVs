@@ -266,7 +266,7 @@
                                     <div class="form-group">
                                         <label asp-for="Categorytypeid" class="form-control-label">Category</label>
                                         <select asp-for="Categorytypeid" class="form-control" required onchange="onCategoryTypeChange()">
-                                            <option value="" selected>Select a Category</option>
+                                            <option value="0" selected>Select a Category</option>
                                             <option value="1">Medical Clinics</option>
                                             <option value="2">Restaurants</option>
                                             <option value="3">Pharmacies</option>
@@ -286,6 +286,7 @@
                                 <script>
                                     function onCategoryTypeChange() {
                                         var categoryType = document.getElementById("Categorytypeid").value;
+                                   
                                         if (categoryType == "4") {
                                             document.getElementById("OtherCat").style.display = "block";
                                         } else {

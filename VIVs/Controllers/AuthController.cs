@@ -31,7 +31,7 @@ namespace VIVs.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(Vivsuser User, string Email, string password, string Estabname ,string Status, string FirstName, string MiddleName, string Surname, string LastName)
+        public IActionResult Register(Vivsuser User, string Email, string password, string Estabname ,string Status, string FirstName, string MiddleName, string Surname, string LastName, decimal Categorytypeid)
         {
             ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryname");
             ViewData["Cityid"] = new SelectList(_context.Vivscities, "Cityid", "City");
@@ -63,6 +63,12 @@ namespace VIVs.Controllers
                 User.Status = "Waiting";
                 string full = FirstName + " " + MiddleName + " " + Surname + " " +LastName;
                 User.Fullname = full;
+                if (Categorytypeid == 0 && Estabname==null)
+                {
+                    User.Categorytypeid = null;
+                    
+                }
+                
                 _context.Add(User);
                 _context.SaveChangesAsync();
                 Vivslogin Login = new Vivslogin();

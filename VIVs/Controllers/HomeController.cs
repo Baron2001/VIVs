@@ -24,14 +24,55 @@ namespace VIVs.Controllers
         public IActionResult Index()
         {
             var AboutUs = _context.Vivsaboutus.FirstOrDefault();
-            var Contact = _context.Vivscontactus.ToList();
-            var Categories = _context.Vivscategories.ToList();
+            var Contact = _context.Vivscontactus.FirstOrDefault();
+            var Categories = _context.Vivscategories.FirstOrDefault();
             var Home = _context.Vivshomes.FirstOrDefault();
             var Post = _context.Vivsposts.ToList();
             var City = _context.Vivscities.ToList();
             var Users = _context.Vivsusers.ToList();
-            var model3 = Tuple.Create<Vivsaboutu, IEnumerable<Vivscontactu>, IEnumerable<Vivscategory>, Vivshome, IEnumerable<Vivspost>, IEnumerable<Vivscity>, IEnumerable<Vivsuser>>(AboutUs, Contact, Categories, Home, Post, City, Users);
+            var model3 = Tuple.Create<Vivsaboutu, Vivscontactu, Vivscategory, Vivshome, IEnumerable<Vivspost>, IEnumerable<Vivscity>, IEnumerable<Vivsuser>>(AboutUs, Contact, Categories, Home, Post, City, Users);
             return View(model3);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(Vivscontactu vivscontactu)
+        {
+            var AboutUs = _context.Vivsaboutus.FirstOrDefault();
+            var Contact = _context.Vivscontactus.FirstOrDefault();
+            var Categories = _context.Vivscategories.FirstOrDefault();
+            var Home = _context.Vivshomes.FirstOrDefault();
+            var Post = _context.Vivsposts.ToList();
+            var City = _context.Vivscities.ToList();
+            var Users = _context.Vivsusers.ToList();
+            var model3 = Tuple.Create<Vivsaboutu, Vivscontactu, Vivscategory, Vivshome, IEnumerable<Vivspost>, IEnumerable<Vivscity>, IEnumerable<Vivsuser>>(AboutUs, Contact, Categories, Home, Post, City, Users);
+            if (ModelState.IsValid)
+            {
+                _context.Add(vivscontactu);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model3);
+        }
+        // GET: Vivscontactus/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Vivscontactus/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,Message,PhoneNumber")] Vivscontactu vivscontactu)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(vivscontactu);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(vivscontactu);
         }
 
         public IActionResult Privacy()
