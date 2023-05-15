@@ -303,6 +303,7 @@ namespace VIVs.Controllers
                 var user = _context.Vivsusers.Where(v => v.Userid == HttpContext.Session.GetInt32("UserSetId")).FirstOrDefault();
                 user.Password = Password;
                 user.Confirmpassword = Confirmpassword;
+                
                 _context.Update(user);
                 await _context.SaveChangesAsync();
 
