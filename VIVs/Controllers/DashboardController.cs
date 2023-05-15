@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using System;
 using System.IO;
 using System.Linq;
@@ -24,6 +26,12 @@ namespace VIVs.Controllers
         ///////////////////////////////////////////////////////////////////////////////////////
         public IActionResult Admin()
         {
+            ViewBag.NumberOfProvider = _context.Vivslogins.Where(r => r.Rolesid == 2).Count();
+            ViewBag.NumberOfResevar = _context.Vivslogins.Where(r => r.Rolesid == 3).Count();
+
+            ViewBag.AllPost = _context.Vivsposts.Select(b => b.Postid).Count();
+
+
             return View();
         }
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +145,9 @@ namespace VIVs.Controllers
                 vivsuser = userList;
                 vivsuser.Status = "Accept";
                 _context.Update(vivsuser);
+                
                 await _context.SaveChangesAsync();
+                SendEmail(userList.Email, "Accept");
                 return RedirectToAction("ProviderRequests", "Dashboard");
             }
             return View();
@@ -157,6 +167,7 @@ namespace VIVs.Controllers
                 vivsuser.Status = "Reject";
                 _context.Update(vivsuser);
                 await _context.SaveChangesAsync();
+                SendEmail(userList.Email, "Reject");
                 return RedirectToAction("ProviderRequests", "Dashboard");
             }
             return View();
@@ -189,6 +200,7 @@ namespace VIVs.Controllers
                 vivsuser.Status = "Accept";
                 _context.Update(vivsuser);
                 await _context.SaveChangesAsync();
+                SendEmail(userList.Email, "Accept");
                 return RedirectToAction("ReceiverRequests", "Dashboard");
             }
             return View();
@@ -208,6 +220,7 @@ namespace VIVs.Controllers
                 vivsuser.Status = "Reject";
                 _context.Update(vivsuser);
                 await _context.SaveChangesAsync();
+                SendEmail(userList.Email, "Reject");
                 return RedirectToAction("ReceiverRequests", "Dashboard");
             }
             return View();
@@ -350,8 +363,40 @@ namespace VIVs.Controllers
             return View(vivshome);
         }
         ///////////////////////////////////////////////////////////////////////////////////////
-        
 
+        [HttpGet]
+        public void SendEmail(String ParentEmail, String status)
+        {
+            //"anoodgg@yahoo.com"
+            //"ozwlzqmtasgevhbq"
+            MimeMessage message = new MimeMessage();
+            MailboxAddress from = new MailboxAddress("VIV`s", "s.moe12@yahoo.com");
+            message.From.Add(from);
+            MailboxAddress to = new MailboxAddress("User", ParentEmail);
+            message.To.Add(to);
+            message.Subject = "Verify Code";
+            BodyBuilder bodyBuilder = new BodyBuilder();
+
+            if (status == "Accept")
+            {
+                bodyBuilder.HtmlBody =
+                "<p>Your Account Status is: <b style=\"color:#7fb685\">Accept</b></p> ";
+            }
+            else if(status == "Reject")
+            {
+                bodyBuilder.HtmlBody =
+                "<p>Your Account Status is: <b style=\"color:red\">Reject</b></p> ";
+
+            }
+            message.Body = bodyBuilder.ToMessageBody();
+            using (var clinte = new SmtpClient())
+            {
+                clinte.Connect("smtp.mail.yahoo.com", 465, true);
+                clinte.Authenticate("s.moe12@yahoo.com", "rxlhovtglvjibneg");
+                clinte.Send(message);
+                clinte.Disconnect(true);
+            }
+        }
 
 
 

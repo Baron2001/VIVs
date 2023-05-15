@@ -9,6 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VIVs.Models;
+using EmailServices;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace VIVs.Controllers
 {
@@ -16,12 +19,15 @@ namespace VIVs.Controllers
     {
         private readonly ModelContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public AuthController(ModelContext context, IWebHostEnvironment webHostEnvironment)
+        private readonly IEmailSender _emailSender;
+        public AuthController(ModelContext context, IWebHostEnvironment webHostEnvironment , IEmailSender emailSender)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _emailSender = emailSender;
         }
         ///////////////////////////////////////////////////////////////////////////////////////
+        
         public IActionResult Register()
         {
             ViewData["Categorytypeid"] = new SelectList(_context.Vivscategories, "Categoryid", "Categoryname");
@@ -92,7 +98,9 @@ namespace VIVs.Controllers
             }
             return View(User);
         }
+        
         ///////////////////////////////////////////////////////////////////////////////////////
+        
         public IActionResult Login()
         {
             ViewBag.error = HttpContext.Session.GetString("messageLogIn");
@@ -162,13 +170,16 @@ namespace VIVs.Controllers
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////
+        
         public IActionResult Logout()
         {
             //AuthenticationHttpContextExtensions.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Auth");
         }
+        
         /////////////////////////////////////////////////////////////////////////////////////// 
+        
         public IActionResult PageWaiting()
         {
             return View();
@@ -177,12 +188,18 @@ namespace VIVs.Controllers
         {
             return View();
         }
+        
         /////////////////////////////////////////////////////////////////////////////////////// 
+        
         [HttpGet]
         public IActionResult ResetPassword()
         {
             ViewBag.errorReset = HttpContext.Session.GetString("messageReset");
             HttpContext.Session.Remove("messageReset");
+            //ViewBag.SendEmail = HttpContext.Session.GetString("SendEmail");
+            //HttpContext.Session.Remove("SendEmail");
+            //HttpContext.Session.Clear();
+            HttpContext.Session.GetInt32("ResetPasswordUserId");
             return View();
         }
         [HttpPost]
@@ -191,6 +208,7 @@ namespace VIVs.Controllers
             var user = _context.Vivsusers.Where(v => v.Email == Email).FirstOrDefault();
             if (user != null)
             {
+                HttpContext.Session.SetInt32("ResetPasswordUserId", (int)user.Userid);
                 // define the 4-digit range
                 int minNumber = 1000;
                 int maxNumber = 9999;
@@ -199,6 +217,9 @@ namespace VIVs.Controllers
                 Random random = new Random();
                 int randomNumber = random.Next(minNumber, maxNumber + 1);
 
+                SendEmail(user.Email, randomNumber);
+                //HttpContext.Session.SetString("SendEmail", "The Verify Code is sent to This Email "+ user.Email);
+                //ViewBag.SendEmail = HttpContext.Session.GetString("SendEmail");
                 user.Verifycode = randomNumber.ToString();
                 _context.Update(user);
                 _context.SaveChangesAsync();
@@ -211,20 +232,51 @@ namespace VIVs.Controllers
             }
             return RedirectToAction("ResetPassword", "Auth");
         }
+
+        ////////////////////////////////////////////////////////////////////////
+        [HttpGet]
+        public void SendEmail(String ParentEmail, int Code)
+        {
+            //"anoodgg@yahoo.com"
+            //"ozwlzqmtasgevhbq"
+            MimeMessage message = new MimeMessage();
+            MailboxAddress from = new MailboxAddress("VIV`s", "s.moe12@yahoo.com");
+            message.From.Add(from);
+            MailboxAddress to = new MailboxAddress("User", ParentEmail);
+            message.To.Add(to);
+            message.Subject = "Verify Code";
+            BodyBuilder bodyBuilder = new BodyBuilder();
+
+            bodyBuilder.HtmlBody =
+            "<p>Your verify code is:<b style=\"color:#7fb685\">" + Code + "</b> </p>" ;
+                //bodyBuilder.HtmlBody =
+                //"<p>Your Garage Status is: <b style=\"color:red\">Reject</b></p> ";
+            message.Body = bodyBuilder.ToMessageBody();
+            using (var clinte = new SmtpClient())
+            {
+                clinte.Connect("smtp.mail.yahoo.com", 465, true);
+                clinte.Authenticate("s.moe12@yahoo.com", "rxlhovtglvjibneg");
+                clinte.Send(message);
+                clinte.Disconnect(true);
+            }
+        }
+
         ////////////////////////////////////////////////////////////////////////
         [HttpGet]
         public IActionResult SendCode()
         {
             ViewBag.errorSendCode = HttpContext.Session.GetString("messageSendCode");
             HttpContext.Session.Remove("messageSendCode");
-            HttpContext.Session.Clear();
+
             HttpContext.Session.GetInt32("UserSetId");
+            HttpContext.Session.GetInt32("ResetPasswordUserId");
+
             return View();
         }
         [HttpPost]
         public IActionResult SendCode(string Verifycode)
         {
-            var user = _context.Vivsusers.Where(v => v.Verifycode == Verifycode).FirstOrDefault();
+            var user = _context.Vivsusers.Where(v => v.Userid == HttpContext.Session.GetInt32("ResetPasswordUserId") && v.Verifycode == Verifycode).FirstOrDefault();
             if (user != null)
             {
                 HttpContext.Session.SetInt32("UserSetId", (int)user.Userid);
@@ -232,12 +284,14 @@ namespace VIVs.Controllers
             }
             else
             {
-                HttpContext.Session.SetString("messageSendCode", "your code in wrong");
+                HttpContext.Session.SetString("messageSendCode", "The number you entered doesn’t match your code. Please try again.");
                 ViewBag.errorSendCode = HttpContext.Session.GetString("messageSendCode");
             }
             return RedirectToAction("SendCode", "Auth");
         }
+        
         ///////////////////////////////////////////////////////////////////////
+        
         [HttpGet]
         public IActionResult SetPass()
         {
@@ -255,6 +309,7 @@ namespace VIVs.Controllers
                 var user = _context.Vivsusers.Where(v => v.Userid == HttpContext.Session.GetInt32("UserSetId")).FirstOrDefault();
                 user.Password = Password;
                 user.Confirmpassword = Confirmpassword;
+                
                 _context.Update(user);
                 await _context.SaveChangesAsync();
 
@@ -271,6 +326,7 @@ namespace VIVs.Controllers
                 return RedirectToAction("SendCode", "Auth");
             }
         }
+        
         ///////////////////////////////////////////////////////////////////////
         private bool UserExists(decimal id)
         {

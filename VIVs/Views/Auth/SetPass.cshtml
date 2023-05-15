@@ -11,20 +11,20 @@
          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
            <div class="card card-plain">
              <div class="card-header pb-0 text-start">
-               <h4 class="font-weight-bolder">Sign In</h4>
-               <p class="mb-0">Enter your email and password to sign in</p>
+               <h4 class="font-weight-bolder">Reset Password</h4>
+               <p class="mb-0">Enter a new password</p>
              </div>
              <div class="card-body">
                <form role="form" asp-action="SetPass" method="POST">
                  <div class="mb-3">
-                    <input asp-for="Password" type="email" id="password" class="form-control form-control-lg" placeholder="password" aria-label="password">
+                    <input asp-for="Password" type="password" id="password" class="form-control form-control-lg" placeholder="password" aria-label="password">
                    <span asp-validation-for="Password" class="text-danger"></span>
 
 @*                   <input asp-for="Password" type="password" id="password" class="form-control" placeholder="Password" aria-label="Password" onfocus="focused(this)" onfocusout="defocused(this)" required>
                    <span asp-validation-for="Password" class="text-danger"></span>*@
                  </div>
                  <div class="mb-3">
-                   <input asp-for="Confirmpassword" for="example-text-input" id="confirm" onChange="ppd();" type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                   <input asp-for="Confirmpassword" for="example-text-input" id="confirm" onChange="ppd();" type="password" class="form-control form-control-lg" placeholder="Confirm Password" aria-label="Password">
                    <span asp-validation-for="Confirmpassword" class="text-danger"></span>
 
 @*                   <input asp-for="Confirmpassword" id="confirm" onChange="ppd();" type="password" class="form-control ErorrPass " placeholder="Confirm Password" aria-label="Confirmpassword" onfocus="focused(this)" onfocusout="defocused(this)" required>
@@ -39,18 +39,12 @@
                      <p style="color:red">@ViewBag.error</p>
                  }*@
                  <div class="text-center">
-                   <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                   <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Set</button>
                    @*<input type="button"////*** type="submit" value="Create" class="btn btn-primary" />*@
                  </div>
                </form>
              </div>
-             <div class="card-footer text-center pt-0 px-lg-2 px-1">
-               <p class="mb-4 text-sm mx-auto">
-                 Don't have an account?
-                 @*href="javascript:;"*@
-                 <a href="~/Auth/Register" class="text-primary text-gradient font-weight-bold">Sign up</a>
-               </p>
-             </div>
+
            </div>
          </div>
          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
@@ -65,3 +59,41 @@
      </div>
    </div>
 </section>
+
+           
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function ppd() {
+        var password = $("#password").val();
+        var confirm_password = $("#confirm").val();
+
+        if (password != confirm_password) {
+            $("#confirm").css('border-color', "#c80000");
+            $("#textboxid").css({
+                "background-color": "#fee2e2"
+            });
+            alert('password not match');
+        }
+        else
+            $("#confirm").css('border-color', "#d2d6da");
+        $("#textboxid").css({
+            "background-color": "#fee2e2"
+        });
+    }
+
+    $(document).ready(function() {
+        $('form').submit(function(event) {
+            var password = $("#password").val();
+            var confirm_password = $("#confirm").val();
+
+            if (password != confirm_password) {
+                $("#confirm").css('border-color', "#c80000");
+                $("#textboxid").css({
+                    "background-color": "#fee2e2"
+                });
+                alert('password not match');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
