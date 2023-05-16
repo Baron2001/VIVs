@@ -97,14 +97,19 @@ namespace VIVs.Controllers
 
         public IActionResult Post()
         {
-            var AboutUs = _context.Vivsaboutus.FirstOrDefault();
-            var Contact = _context.Vivscontactus.FirstOrDefault();
-            var Categories = _context.Vivscategories.FirstOrDefault();
-            var Home = _context.Vivshomes.FirstOrDefault();
-            var Post = _context.Vivsposts.ToList();
-            var City = _context.Vivscities.ToList();
-            var Users = _context.Vivsusers.ToList();
-            var model3 = Tuple.Create<Vivsaboutu, Vivscontactu, Vivscategory, Vivshome, IEnumerable<Vivspost>, IEnumerable<Vivscity>, IEnumerable<Vivsuser>>(AboutUs, Contact, Categories, Home, Post, City, Users);
+            ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
+            ViewBag.ReceiverName = HttpContext.Session.GetString("ReceiverName");
+            if (HttpContext.Session.GetString("ReceiverImage") != null)
+            {
+                ViewBag.ReceiverImage = HttpContext.Session.GetString("ReceiverImage");
+            }
+            ViewBag.ReceiverEmail = HttpContext.Session.GetString("ReceiverEmail");
+            
+            var Medical = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid ==1).ToList();
+            var Pharmacies = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 3).ToList();
+            var Restaurants = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 2).ToList();
+            var Other = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 4).ToList();
+            var model3 = Tuple.Create< IEnumerable<Vivspost>, IEnumerable<Vivspost>, IEnumerable<Vivspost>, IEnumerable<Vivspost>>(Medical, Pharmacies, Restaurants, Other);
             return View(model3);
         }
 

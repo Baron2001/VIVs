@@ -91,7 +91,9 @@ namespace VIVs.Controllers
             {
                 return NotFound();
             }
-
+            vivspost.Isdeleted=false;
+            _context.Update(vivspost);
+            await _context.SaveChangesAsync();
             if (ModelState.IsValid)
             {
                 ViewBag.ProviderId = HttpContext.Session.GetInt32("ProviderId");

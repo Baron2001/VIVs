@@ -1,7 +1,12 @@
-﻿
+﻿@model Tuple<IEnumerable<VIVs.Models.Vivspost>,IEnumerable<VIVs.Models.Vivspost> ,IEnumerable<VIVs.Models.Vivspost>, IEnumerable<VIVs.Models.Vivspost>>
+
 @{
     ViewData["Title"] = "Post";
     Layout = "~/Views/Shared/_Home.cshtml";
+        var id =ViewBag.ReceiverId;
+    var name =ViewBag.ReceiverName;
+    var img =ViewBag.ReceiverImage;
+    var email =ViewBag.ReceiverEmail;
 }
 
 <head>
@@ -72,78 +77,305 @@
                 </div>
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane fade show p-0 active">
-                        <div class="row g-4">
-                            <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
-                                <div class="testimonial-item">
-                                    <div class="testimonial-text border rounded p-4 pt-5 mb-5">
-                                        <div class="btn-square bg-white border rounded-circle">
-                                            <i class="fa fa-quote-right fa-2x text-primary"></i>
+                        <div class="row g-4" style=" display: flex; justify-content: center;">
+                            @if (@Model.Item1 != null)
+                            {
+                               @foreach (var item in @Model.Item1)
+                               {
+                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-text border rounded p-4 pt-5 mb-5">
+                                                <div class="btn-square bg-white border rounded-circle" style="display:grid;">
+                                                    @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                                    <div><b>@item.Numberofitem</b></div>
+                                                    <p>Items</p>
+                                                </div>
+                                                <b>@item.Description</b>
+
+                                            </div>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"style="margin: 0 auto; width: 100px; height: 100px;"  alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            @{
+                                                switch(@item.Users.Cityid)
+                                                {
+                                                    case 1: <span><b>City: </b>Amman</span>break;
+                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
+                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
+                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
+                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
+                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
+                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
+                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
+                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
+                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
+                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
+                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    default: break;
+                                                }
+                                            }
+
+                                            <span><b>/ </b>@item.Users.Address</span>
+                                           <span><b>Type: </b>Medical Clinics</span>
+                                           <span><b>Deadline: </b>@item.Deadline</span>
+
+                                            <br/>
+                                            @if(@name !=null)
+                                            {
+                                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                                        Book
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
+                                            }
+                                            else 
+                                            {
+                                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                        Login For Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
+                                            }
+                                         
                                         </div>
-                                        Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </div>
-                                    <img class="rounded-circle mb-3" src="img/testimonial-3.jpg" alt="">
-                                    <h4>Client Name</h4>
-                                    <span>Profession</span>
-                                </div>
-                            </div>
+                                   </div>
+                               }
+                            }
 
 
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                         <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
-                                <div class="testimonial-item">
-                                    <div class="testimonial-text border rounded p-4 pt-5 mb-5">
-                                        <div class="btn-square bg-white border rounded-circle">
-                                            <i class="fa fa-quote-right fa-2x text-primary"></i>
-                                        </div>
-                                        Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </div>
-                                    <img class="rounded-circle mb-3" src="img/testimonial-3.jpg" alt="">
-                                    <h4>Client Name</h4>
-                                    <span>Profession</span>
-                                </div>
-                            </div>
+                         <div class="row g-4" style=" display: flex; justify-content: center;">
 
+                            @if (@Model.Item2 != null)
+                            {
+                               @foreach (var item in @Model.Item2)
+                               {
+                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                    <div class="testimonial-item">
+                                        <div class="testimonial-text border rounded p-4 pt-5 mb-5">
+                                            <div class="btn-square bg-white border rounded-circle" style="display:grid;">
+                                                @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                                <div><b>@item.Numberofitem</b></div>
+                                                <p>Items</p>
+                                            </div>
+                                            <b>@item.Description</b>
+
+                                        </div>
+                                        <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
+                                        <h4>@item.Users.Fullname</h4>
+                                        <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            @{
+                                                switch(@item.Users.Cityid)
+                                                {
+                                                    case 1: <span><b>City: </b>Amman</span>break;
+                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
+                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
+                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
+                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
+                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
+                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
+                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
+                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
+                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
+                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
+                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    default: break;
+                                                }
+                                            }
+
+                                            <span><b>/ </b>@item.Users.Address</span>
+                                           <span><b>Type: </b>Medical Clinics</span>
+                                       <span>Pharmacies</span>
+                                        <br/>
+                                        @if(@name !=null)
+                                        {
+                                            @if(@item.Numberofitem>0)
+                                            {
+                                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                                    Booking
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-danger " style="margin-top:5px;">
+                                                    Out of Stock
+                                                </a>
+                                            }
+                                        }
+                                        else 
+                                        {
+                                            <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                Login For Booking
+                                            </a>
+                                        }
+                                     
+                                    </div>
+                                    </div>
+                               }
+                            }
 
                         </div>
                     </div>
                      <div id="tab-3" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                         <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
-                                <div class="testimonial-item">
-                                    <div class="testimonial-text border rounded p-4 pt-5 mb-5">
-                                        <div class="btn-square bg-white border rounded-circle">
-                                            <i class="fa fa-quote-right fa-2x text-primary"></i>
+                         <div class="row g-4" style=" display: flex; justify-content: center;">
+                         
+                            @if (@Model.Item3 != null)
+                            {
+                               @foreach (var item in @Model.Item3)
+                               {
+                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-text border rounded p-4 pt-5 mb-5">
+                                                <div class="btn-square bg-white border rounded-circle" style="display:grid;">
+                                                    @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                                    <div><b>@item.Numberofitem</b></div>
+                                                    <p>Items</p>
+                                                </div>
+                                                <b>@item.Description</b>
+
+                                            </div>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            @{
+                                                switch(@item.Users.Cityid)
+                                                {
+                                                    case 1: <span><b>City: </b>Amman</span>break;
+                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
+                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
+                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
+                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
+                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
+                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
+                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
+                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
+                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
+                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
+                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    default: break;
+                                                }
+                                            }
+
+                                            <span><b>/ </b>@item.Users.Address</span>
+                                           <span><b>Type: </b>Medical Clinics</span>
+                                           <span>Restaurants</span>
+                                            <br/>
+                                            @if(@name !=null)
+                                            {
+                                                @if(@item.Numberofitem>0)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                                        Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
+                                            }
+                                            else 
+                                            {
+                                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                    Login For Booking
+                                                </a>
+                                            }
+                                         
                                         </div>
-                                        Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
                                     </div>
-                                    <img class="rounded-circle mb-3" src="img/testimonial-3.jpg" alt="">
-                                    <h4>Client Name</h4>
-                                    <span>Profession</span>
-                                </div>
-                            </div>
+                               }
+                            }
 
 
                         </div>
                     </div>
                      <div id="tab-4" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                         <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
-                                <div class="testimonial-item">
-                                    <div class="testimonial-text border rounded p-4 pt-5 mb-5">
-                                        <div class="btn-square bg-white border rounded-circle">
-                                            <i class="fa fa-quote-right fa-2x text-primary"></i>
-                                        </div>
-                                        Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                                    </div>
-                                    <img class="rounded-circle mb-3" src="img/testimonial-3.jpg" alt="">
-                                    <h4>Client Name</h4>
-                                    <span>Profession</span>
-                                </div>
-                            </div>
+                         <div class="row g-4" style=" display: flex; justify-content: center;">
+                         
+                            @if (@Model.Item4 != null)
+                            {
+                               @foreach (var item in @Model.Item4)
+                               {
+                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-text border rounded p-4 pt-5 mb-5">
+                                                <div class="btn-square bg-white border rounded-circle" style="display:grid;">
+                                                    @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                                    <div><b>@item.Numberofitem</b></div>
+                                                    <p>Items</p>
+                                                </div>
+                                                <b>@item.Description</b>
 
+                                            </div>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            @{
+                                                switch(@item.Users.Cityid)
+                                                {
+                                                    case 1: <span><b>City: </b>Amman</span>break;
+                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
+                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
+                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
+                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
+                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
+                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
+                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
+                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
+                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
+                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
+                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    default: break;
+                                                }
+                                            }
+
+                                            <span><b>/ </b>@item.Users.Address</span>
+                                           <span><b>Type: </b>Medical Clinics</span>
+                                           <span>Other Services</span>
+                                            <br/>
+                                            @if(@name !=null)
+                                            {
+                                                @if(@item.Numberofitem>0)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                                        Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
+                                            }
+                                            else 
+                                            {
+                                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                    Login For Booking
+                                                </a>
+                                            }
+                                         
+                                        </div>
+                                    </div>
+                               }
+                            }
 
                         </div>
                     </div>
