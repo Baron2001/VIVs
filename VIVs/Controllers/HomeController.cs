@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -24,6 +25,14 @@ namespace VIVs.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
+            ViewBag.ReceiverName = HttpContext.Session.GetString("ReceiverName");
+            if (HttpContext.Session.GetString("ReceiverImage") != null)
+            {
+                ViewBag.ReceiverImage = HttpContext.Session.GetString("ReceiverImage");
+            }
+            ViewBag.ReceiverEmail = HttpContext.Session.GetString("ReceiverEmail");
+
             ViewBag.NumberOfProvider = _context.Vivslogins.Where(r => r.Rolesid == 2).Count();
             ViewBag.NumberOfResevar = _context.Vivslogins.Where(r => r.Rolesid == 3).Count();
             ViewBag.AllPost = _context.Vivsposts.Select(b => b.Postid).Count();
@@ -38,7 +47,14 @@ namespace VIVs.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(Vivscontactu vivscontactu)
-        {    
+        {
+            ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
+            ViewBag.ReceiverName = HttpContext.Session.GetString("ReceiverName");
+            if (HttpContext.Session.GetString("ReceiverImage") != null)
+            {
+                ViewBag.ReceiverImage = HttpContext.Session.GetString("ReceiverImage");
+            }
+            ViewBag.ReceiverEmail = HttpContext.Session.GetString("ReceiverEmail");
             if (ModelState.IsValid)
             {
                 _context.Add(vivscontactu);

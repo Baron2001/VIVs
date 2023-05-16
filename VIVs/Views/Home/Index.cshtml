@@ -1,6 +1,11 @@
 ﻿@model Tuple<VIVs.Models.Vivshome,VIVs.Models.Vivscategory ,VIVs.Models.Vivsaboutu, IEnumerable<VIVs.Models.Vivscontactu>,IEnumerable<VIVs.Models.Vivspost>>
 @{
     Layout = "~/Views/Shared/_Home.cshtml";
+    var id =ViewBag.ReceiverId;
+    var name =ViewBag.ReceiverName;
+    var img =ViewBag.ReceiverImage;
+    var email =ViewBag.ReceiverEmail;
+
 }
 
 <!-- Carousel Start -->
@@ -504,25 +509,83 @@
 </div>
 <!-- Team End -->
 <!-- Testimonial Start -->
-@* <div class="container-xxl py-5">
+ <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <p class="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">Testimonial</p>
-                <h1 class="display-5 mb-5">What Our Clients Say!</h1>
+                <p class="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">Posts</p>
+                <h1 class="display-5 mb-5">Popular Posts!</h1>
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.3s">
-                <div class="testimonial-item">
-                    <div class="testimonial-text border rounded p-4 pt-5 mb-5">
-                        <div class="btn-square bg-white border rounded-circle">
-                            <i class="fa fa-quote-right fa-2x text-primary"></i>
+                @if (@Model.Item5 != null)
+                {
+                    @foreach (var item in @Model.Item5)
+                    {
+                        <div class="testimonial-item">
+                            <div class="testimonial-text border rounded p-4 pt-5 mb-5">
+                                <div class="btn-square bg-white border rounded-circle" style="display:grid;">
+                                    @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                    <div><b>@item.Numberofitem</b></div>
+                                    <p>Items</p>
+                                </div>
+                                <b>@item.Description</b>
+
+                            </div>
+                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
+                            <h4>@item.Users.Fullname</h4>
+                            @{
+                                switch(@item.Users.Categorytypeid)
+                                {
+                                    case 1:
+                                        // Use the text block below to separate html elements from code
+                                                        <span>Medical Clinics</span>
+                                        //<text>
+                                        //    <h1>Test Site</h1>
+                                        //</text>
+                                        break;  // Always break each case
+                                    case 2:
+                                               <text>
+                                                   <span>Restaurants</span>
+                                               </text>
+                                        break;
+                                    case 3:
+                                               <text>
+                                                   <span>Pharmacies</span>
+                                               </text>
+                                        break;
+                                    default:
+                                               <text>
+                                                   <span>Other Volunteering Services</span>
+                                               </text>
+                                        break;
+                                }
+                            }
+                            <br/>
+                            @if(@name !=null)
+                            {
+                                @if(@item.Numberofitem>0)
+                                {
+                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                        Booking
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                        Out of Stock
+                                    </a>
+                                }
+                            }
+                            else 
+                            {
+                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                    Login For Booking
+                                </a>
+                            }
+                            
                         </div>
-                        Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
-                    </div>
-                    <img class="rounded-circle mb-3" src="~/img/testimonial-1.jpg" alt="">
-                    <h4>Client Name</h4>
-                    <span>Profession</span>
-                </div>
-                <div class="testimonial-item">
+                    }
+                }
+            @*<div class="testimonial-item">
                     <div class="testimonial-text border rounded p-4 pt-5 mb-5">
                         <div class="btn-square bg-white border rounded-circle">
                             <i class="fa fa-quote-right fa-2x text-primary"></i>
@@ -554,8 +617,8 @@
                     <img class="rounded-circle mb-3" src="~/img/testimonial-4.jpg" alt="">
                     <h4>Client Name</h4>
                     <span>Profession</span>
-                </div>
+                </div>*@
             </div>
         </div>
-    </div>*@
+    </div>
 <!-- Testimonial End -->

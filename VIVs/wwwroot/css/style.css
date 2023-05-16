@@ -422,10 +422,12 @@ h6,
     padding-top: 30px;
 }
 
-.testimonial-item .testimonial-text {
-    position: relative;
-    text-align: center;
-}
+    .testimonial-item .testimonial-text {
+        position: relative;
+        text-align: center;
+        height: 200px;
+        background-color: #e9ecef;
+    }
 
 .testimonial-item .testimonial-text .btn-square {
     position: absolute;
@@ -434,6 +436,7 @@ h6,
     top: -30px;
     left: 50%;
     transform: translateX(-50%);
+        color: #011A41
 }
 
 .testimonial-item .testimonial-text::before {
@@ -453,7 +456,7 @@ h6,
     left: 50%;
     transform: translateX(-50%);
     border: 30px solid;
-    border-color: #FFFFFF transparent transparent transparent;
+    border-color: #555  transparent transparent transparent;
 }
 
 .testimonial-carousel .owl-item img {

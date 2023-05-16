@@ -145,7 +145,7 @@ namespace VIVs.Controllers
                                     HttpContext.Session.SetString("ReceiverImage", auth.Users.Image);
                                 }
                                 HttpContext.Session.SetString("ReceiverEmail", auth.Email);
-                                return RedirectToAction("Home", "Home");
+                                return RedirectToAction("Index", "Home");
                         }
                     }
                     else if (auth.Users.Status == "Reject")
