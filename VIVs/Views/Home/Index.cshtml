@@ -511,28 +511,37 @@
                                 }
                             }
                             <br/>
-                            @if(@name !=null)
-                            {
-                                @if(@item.Numberofitem>0)
-                                {
-                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
-                                        Book
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-danger " style="margin-top:5px;">
-                                        Out of Stock
-                                    </a>
-                                }
-                            }
-                            else 
-                            {
-                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
-                                    Login For Booking
-                                </a>
-                            }
-                            
+                           @if(@name !=null)
+                           {
+                               @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
+                               {
+                                   <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
+                                       Book
+                                   </a>
+                               }
+                               else
+                               {
+                                   <a class="btn btn-danger " style="margin-top:5px;">
+                                       Out of Stock
+                                   </a>
+                               }
+                           }
+                           else 
+                           {
+                               @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
+                               {
+                                   <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                       Login For Booking
+                                   </a>
+                               }
+                               else
+                               {
+                                   <a class="btn btn-danger " style="margin-top:5px;">
+                                       Out of Stock
+                                   </a>
+                               }
+                           }
+                           
                         </div>
                     }
                 }

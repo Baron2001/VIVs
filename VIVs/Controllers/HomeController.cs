@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -113,6 +114,48 @@ namespace VIVs.Controllers
             return View(model3);
         }
 
+        public async Task<IActionResult> BookCreate(decimal postId )
+        {
+            //Bookid
+            //Booktime  
+            //Postid   
+            //Userid 
+            //Post
+            //User
+            Vivsbooking vivsbooking =new Vivsbooking();
+            var PostList = _context.Vivsposts.Include(v => v.Users).Where(p => p.Postid == postId && p.Numberofitem > 0 && p.Deadline >=DateTime.Now).FirstOrDefault();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    
+                    ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
+                    if (PostList != null)
+                    {
+                        vivsbooking.Booktime= DateTime.Now;
+                        vivsbooking.Postid=postId;
+                        vivsbooking.Userid = HttpContext.Session.GetInt32("ReceiverId");
+                        PostList.Numberofitem -= 1;
+                        _context.Update(PostList);
+                        await _context.SaveChangesAsync();
+                        _context.Add(vivsbooking);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            ViewData["Postid"] = new SelectList(_context.Vivsposts, "Postid", "Postid", vivsbooking.Postid);
+            ViewData["Userid"] = new SelectList(_context.Vivsusers, "Userid", "Userid", vivsbooking.Userid);
+            return RedirectToAction("Post", "Home");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
