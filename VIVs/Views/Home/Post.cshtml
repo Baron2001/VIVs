@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Post";
     Layout = "~/Views/Shared/_Home.cshtml";
-        var id =ViewBag.ReceiverId;
-    var name =ViewBag.ReceiverName;
-    var img =ViewBag.ReceiverImage;
-    var email =ViewBag.ReceiverEmail;
+    var id = ViewBag.ReceiverId;
+    var name = ViewBag.ReceiverName;
+    var img = ViewBag.ReceiverImage;
+    var email = ViewBag.ReceiverEmail;
 }
 
 <head>
@@ -60,16 +60,17 @@
                     <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                         <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">Medical Clinics
-                        </a>
+                                <a class="btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">
+                                    Medical Clinics
+                                </a>
                             </li>
                             <li class="nav-item me-2">
                                 <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">Pharmacies</a>
                             </li>
-                                <li class="nav-item me-2">
+                            <li class="nav-item me-2">
                                 <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">Restaurants</a>
                             </li>
-                                <li class="nav-item me-2">
+                            <li class="nav-item me-2">
                                 <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-4">Other Services</a>
                             </li>
                         </ul>
@@ -80,9 +81,9 @@
                         <div class="row g-4" style=" display: flex; justify-content: center;">
                             @if (@Model.Item1 != null)
                             {
-                               @foreach (var item in @Model.Item1)
-                               {
-                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                @foreach (var item in @Model.Item1)
+                                {
+                                    <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
                                         <div class="testimonial-item">
                                             <div class="testimonial-text border rounded p-4 pt-5 mb-5">
                                                 <div class="btn-square bg-white border rounded-circle" style="display:grid;">
@@ -93,40 +94,66 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"style="margin: 0 auto; width: 100px; height: 100px;"  alt="">
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
                                             <h4>@item.Users.Fullname</h4>
-                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            <span id="phoneNumber" style="display: none;"><b>Phone: </b>@item.Users.Phonenumber</span>
                                             @{
-                                                switch(@item.Users.Cityid)
+                                                switch (@item.Users.Cityid)
                                                 {
-                                                    case 1: <span><b>City: </b>Amman</span>break;
-                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
-                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
-                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
-                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
-                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
-                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
-                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
-                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
-                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
-                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
-                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    case 1:
+                                                        <span><b>City: </b>Amman</span>
+                                                        break;
+                                                    case 2:
+                                                        <text> <span><b>City: </b>Irbid</span> </text>
+                                                        break;
+                                                    case 3:
+                                                        <text> <span><b>City: </b>Zarqa</span> </text>
+                                                        break;
+                                                    case 4:
+                                                        <text> <span><b>City: </b>Al-Karak</span> </text>
+                                                        break;
+                                                    case 5:
+                                                        <text> <span><b>City: </b>Aqaba</span> </text>
+                                                        break;
+                                                    case 6:
+                                                        <text> <span><b>City: </b>Mafraq</span> </text>
+                                                        break;
+                                                    case 7:
+                                                        <text> <span><b>City: </b>Madaba</span> </text>
+                                                        break;
+                                                    case 8:
+                                                        <text> <span><b>City: </b>Al-Balqa</span> </text>
+                                                        break;
+                                                    case 9:
+                                                        <text> <span><b>City: </b>Ma'an</span></text>
+                                                        break;
+                                                    case 10:
+                                                        <text> <span><b>City: </b>Tafilah</span> </text>
+                                                        break;
+                                                    case 11:
+                                                        <text> <span><b>City: </b>Jerash</span> </text>
+                                                        break;
+                                                    case 12:
+                                                        <text> <span><b>City: </b>Ajloun</span> </text>
+                                                        break;
                                                     default: break;
                                                 }
                                             }
 
                                             <span><b>/ </b>@item.Users.Address</span>
-                                           <span><b>Type: </b>Medical Clinics</span>
-                                           <span><b>Deadline: </b>@item.Deadline</span>
+                                            <span><b>Type: </b>Medical Clinics</span>
+                                            <span><b>Deadline: </b>@item.Deadline</span>
 
-                                            <br/>
-                                            @if(@name !=null)
+                                            <br />
+                                            @if (@name != null)
                                             {
-                                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
-                                                        Book
-                                                    </a>
+                                                    <a onclick="togglePhoneNumber()" class="btn btn-primary" style="margin-top: 5px;">Book</a>
+
+                                                    @*  <a asp-action="BookCreate" asp-controller="Home"  class="btn btn-primary " style="margin-top:5px;">
+                                    Book
+                                    </a>*@
                                                 }
                                                 else
                                                 {
@@ -135,11 +162,11 @@
                                                     </a>
                                                 }
                                             }
-                                            else 
+                                            else
                                             {
-                                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
                                                         Login For Booking
                                                     </a>
                                                 }
@@ -150,96 +177,130 @@
                                                     </a>
                                                 }
                                             }
-                                         
+
                                         </div>
-                                   </div>
-                               }
+                                    </div>
+                                }
                             }
-
-
+                            <script>
+                                function togglePhoneNumber() {
+                                    var phoneNumber = document.getElementById('phoneNumber');
+                                    if (phoneNumber.style.display === 'none') {
+                                        phoneNumber.style.display = 'inline';
+                                    } else {
+                                        phoneNumber.style.display = 'none';
+                                    }
+                                }
+                            </script>
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane fade show p-0">
-                         <div class="row g-4" style=" display: flex; justify-content: center;">
+                        <div class="row g-4" style=" display: flex; justify-content: center;">
 
                             @if (@Model.Item2 != null)
                             {
-                               @foreach (var item in @Model.Item2)
-                               {
-                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-text border rounded p-4 pt-5 mb-5">
-                                            <div class="btn-square bg-white border rounded-circle" style="display:grid;">
-                                                @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
-                                                <div><b>@item.Numberofitem</b></div>
-                                                <p>Items</p>
-                                            </div>
-                                            <b>@item.Description</b>
+                                @foreach (var item in @Model.Item2)
+                                {
+                                    <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-text border rounded p-4 pt-5 mb-5">
+                                                <div class="btn-square bg-white border rounded-circle" style="display:grid;">
+                                                    @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                                    <div><b>@item.Numberofitem</b></div>
+                                                    <p>Items</p>
+                                                </div>
+                                                <b>@item.Description</b>
 
-                                        </div>
-                                        <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
-                                        <h4>@item.Users.Fullname</h4>
-                                        <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            </div>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span id="phoneNumber" style="display: none;"><b>Phone: </b>@item.Users.Phonenumber</span>
                                             @{
-                                                switch(@item.Users.Cityid)
+                                                switch (@item.Users.Cityid)
                                                 {
-                                                    case 1: <span><b>City: </b>Amman</span>break;
-                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
-                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
-                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
-                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
-                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
-                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
-                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
-                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
-                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
-                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
-                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    case 1:
+                                                        <span><b>City: </b>Amman</span>
+                                                        break;
+                                                    case 2:
+                                                        <text> <span><b>City: </b>Irbid</span> </text>
+                                                        break;
+                                                    case 3:
+                                                        <text> <span><b>City: </b>Zarqa</span> </text>
+                                                        break;
+                                                    case 4:
+                                                        <text> <span><b>City: </b>Al-Karak</span> </text>
+                                                        break;
+                                                    case 5:
+                                                        <text> <span><b>City: </b>Aqaba</span> </text>
+                                                        break;
+                                                    case 6:
+                                                        <text> <span><b>City: </b>Mafraq</span> </text>
+                                                        break;
+                                                    case 7:
+                                                        <text> <span><b>City: </b>Madaba</span> </text>
+                                                        break;
+                                                    case 8:
+                                                        <text> <span><b>City: </b>Al-Balqa</span> </text>
+                                                        break;
+                                                    case 9:
+                                                        <text> <span><b>City: </b>Ma'an</span></text>
+                                                        break;
+                                                    case 10:
+                                                        <text> <span><b>City: </b>Tafilah</span> </text>
+                                                        break;
+                                                    case 11:
+                                                        <text> <span><b>City: </b>Jerash</span> </text>
+                                                        break;
+                                                    case 12:
+                                                        <text> <span><b>City: </b>Ajloun</span> </text>
+                                                        break;
                                                     default: break;
                                                 }
                                             }
 
                                             <span><b>/ </b>@item.Users.Address</span>
-                                           <span><b>Type: </b>Medical Clinics</span>
-                                       <span>Pharmacies</span>
-                                        <br/>
-                                        @if(@name !=null)
-                                        {
-                                            @if(@item.Numberofitem>0)
+                                            <span><b>Type: </b>Medical Clinics</span>
+                                            <span>Pharmacies</span>
+                                            <br />
+                                            @if (@name != null)
                                             {
-                                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
-                                                    Booking
-                                                </a>
+                                                @if (@item.Numberofitem > 0)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-primary " style="margin-top:5px;">
+                                                        Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
                                             }
                                             else
                                             {
-                                                <a class="btn btn-danger " style="margin-top:5px;">
-                                                    Out of Stock
+                                                <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
+                                                    Login For Booking
                                                 </a>
                                             }
-                                        }
-                                        else 
-                                        {
-                                            <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
-                                                Login For Booking
-                                            </a>
-                                        }
-                                     
+
+                                        </div>
                                     </div>
-                                    </div>
-                               }
+                                }
                             }
+
+
 
                         </div>
                     </div>
-                     <div id="tab-3" class="tab-pane fade show p-0">
-                         <div class="row g-4" style=" display: flex; justify-content: center;">
-                         
+                    <div id="tab-3" class="tab-pane fade show p-0">
+                        <div class="row g-4" style=" display: flex; justify-content: center;">
+
                             @if (@Model.Item3 != null)
                             {
-                               @foreach (var item in @Model.Item3)
-                               {
-                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                @foreach (var item in @Model.Item3)
+                                {
+                                    <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
                                         <div class="testimonial-item">
                                             <div class="testimonial-text border rounded p-4 pt-5 mb-5">
                                                 <div class="btn-square bg-white border rounded-circle" style="display:grid;">
@@ -250,37 +311,61 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
                                             <h4>@item.Users.Fullname</h4>
                                             <span><b>Phone: </b>@item.Users.Phonenumber</span>
                                             @{
-                                                switch(@item.Users.Cityid)
+                                                switch (@item.Users.Cityid)
                                                 {
-                                                    case 1: <span><b>City: </b>Amman</span>break;
-                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
-                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
-                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
-                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
-                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
-                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
-                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
-                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
-                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
-                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
-                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    case 1:
+                                                        <span><b>City: </b>Amman</span>
+                                                        break;
+                                                    case 2:
+                                                        <text> <span><b>City: </b>Irbid</span> </text>
+                                                        break;
+                                                    case 3:
+                                                        <text> <span><b>City: </b>Zarqa</span> </text>
+                                                        break;
+                                                    case 4:
+                                                        <text> <span><b>City: </b>Al-Karak</span> </text>
+                                                        break;
+                                                    case 5:
+                                                        <text> <span><b>City: </b>Aqaba</span> </text>
+                                                        break;
+                                                    case 6:
+                                                        <text> <span><b>City: </b>Mafraq</span> </text>
+                                                        break;
+                                                    case 7:
+                                                        <text> <span><b>City: </b>Madaba</span> </text>
+                                                        break;
+                                                    case 8:
+                                                        <text> <span><b>City: </b>Al-Balqa</span> </text>
+                                                        break;
+                                                    case 9:
+                                                        <text> <span><b>City: </b>Ma'an</span></text>
+                                                        break;
+                                                    case 10:
+                                                        <text> <span><b>City: </b>Tafilah</span> </text>
+                                                        break;
+                                                    case 11:
+                                                        <text> <span><b>City: </b>Jerash</span> </text>
+                                                        break;
+                                                    case 12:
+                                                        <text> <span><b>City: </b>Ajloun</span> </text>
+                                                        break;
                                                     default: break;
                                                 }
                                             }
 
                                             <span><b>/ </b>@item.Users.Address</span>
-                                           <span><b>Type: </b>Medical Clinics</span>
-                                           <span>Restaurants</span>
-                                            <br/>
-                                            @if(@name !=null)
+                                            <span><b>Type: </b>Medical Clinics</span>
+                                            <span>Restaurants</span>
+                                            <br />
+                                            @if (@name != null)
                                             {
-                                                @if(@item.Numberofitem>0)
+                                                @if (@item.Numberofitem > 0)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-primary " style="margin-top:5px;">
                                                         Booking
                                                     </a>
                                                 }
@@ -291,29 +376,29 @@
                                                     </a>
                                                 }
                                             }
-                                            else 
+                                            else
                                             {
-                                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
                                                     Login For Booking
                                                 </a>
                                             }
-                                         
+
                                         </div>
                                     </div>
-                               }
+                                }
                             }
 
 
                         </div>
                     </div>
-                     <div id="tab-4" class="tab-pane fade show p-0">
-                         <div class="row g-4" style=" display: flex; justify-content: center;">
-                         
+                    <div id="tab-4" class="tab-pane fade show p-0">
+                        <div class="row g-4" style=" display: flex; justify-content: center;">
+
                             @if (@Model.Item4 != null)
                             {
-                               @foreach (var item in @Model.Item4)
-                               {
-                                   <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
+                                @foreach (var item in @Model.Item4)
+                                {
+                                    <div class="owl-item active center" style="width: 356px; margin-right: 24px;">
                                         <div class="testimonial-item">
                                             <div class="testimonial-text border rounded p-4 pt-5 mb-5">
                                                 <div class="btn-square bg-white border rounded-circle" style="display:grid;">
@@ -324,37 +409,61 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  alt="">
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
                                             <h4>@item.Users.Fullname</h4>
                                             <span><b>Phone: </b>@item.Users.Phonenumber</span>
                                             @{
-                                                switch(@item.Users.Cityid)
+                                                switch (@item.Users.Cityid)
                                                 {
-                                                    case 1: <span><b>City: </b>Amman</span>break;
-                                                    case 2: <text> <span><b>City: </b>Irbid</span> </text> break;
-                                                    case 3: <text> <span><b>City: </b>Zarqa</span> </text> break;
-                                                    case 4: <text> <span><b>City: </b>Al-Karak</span> </text> break;
-                                                    case 5: <text> <span><b>City: </b>Aqaba</span> </text> break;
-                                                    case 6: <text> <span><b>City: </b>Mafraq</span> </text> break;
-                                                    case 7: <text> <span><b>City: </b>Madaba</span> </text> break;
-                                                    case 8: <text> <span><b>City: </b>Al-Balqa</span> </text> break;
-                                                    case 9: <text> <span><b>City: </b>Ma'an</span></text> break;
-                                                    case 10: <text> <span><b>City: </b>Tafilah</span> </text> break;
-                                                    case 11: <text> <span><b>City: </b>Jerash</span> </text> break;
-                                                    case 12: <text> <span><b>City: </b>Ajloun</span> </text> break;
+                                                    case 1:
+                                                        <span><b>City: </b>Amman</span>
+                                                        break;
+                                                    case 2:
+                                                        <text> <span><b>City: </b>Irbid</span> </text>
+                                                        break;
+                                                    case 3:
+                                                        <text> <span><b>City: </b>Zarqa</span> </text>
+                                                        break;
+                                                    case 4:
+                                                        <text> <span><b>City: </b>Al-Karak</span> </text>
+                                                        break;
+                                                    case 5:
+                                                        <text> <span><b>City: </b>Aqaba</span> </text>
+                                                        break;
+                                                    case 6:
+                                                        <text> <span><b>City: </b>Mafraq</span> </text>
+                                                        break;
+                                                    case 7:
+                                                        <text> <span><b>City: </b>Madaba</span> </text>
+                                                        break;
+                                                    case 8:
+                                                        <text> <span><b>City: </b>Al-Balqa</span> </text>
+                                                        break;
+                                                    case 9:
+                                                        <text> <span><b>City: </b>Ma'an</span></text>
+                                                        break;
+                                                    case 10:
+                                                        <text> <span><b>City: </b>Tafilah</span> </text>
+                                                        break;
+                                                    case 11:
+                                                        <text> <span><b>City: </b>Jerash</span> </text>
+                                                        break;
+                                                    case 12:
+                                                        <text> <span><b>City: </b>Ajloun</span> </text>
+                                                        break;
                                                     default: break;
                                                 }
                                             }
 
                                             <span><b>/ </b>@item.Users.Address</span>
-                                           <span><b>Type: </b>Medical Clinics</span>
-                                           <span>Other Services</span>
-                                            <br/>
-                                            @if(@name !=null)
+                                            <span><b>Type: </b>Medical Clinics</span>
+                                            <span>Other Services</span>
+                                            <br />
+                                            @if (@name != null)
                                             {
-                                                @if(@item.Numberofitem>0)
+                                                @if (@item.Numberofitem > 0)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth"  class="btn btn-primary " style="margin-top:5px;">
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-primary " style="margin-top:5px;">
                                                         Booking
                                                     </a>
                                                 }
@@ -365,16 +474,16 @@
                                                     </a>
                                                 }
                                             }
-                                            else 
+                                            else
                                             {
-                                                <a asp-action="Login" asp-controller="Auth"  class="btn btn-warning " style="margin-top:5px;">
+                                                <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
                                                     Login For Booking
                                                 </a>
                                             }
-                                         
+
                                         </div>
                                     </div>
-                               }
+                                }
                             }
 
                         </div>
@@ -395,4 +504,4 @@
     <!-- Template Javascript -->
     <script src="~/Ads/js/main.js"></script>
 
-    </body>
+</body>
