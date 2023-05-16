@@ -28,10 +28,7 @@ namespace VIVs.Controllers
         {
             ViewBag.NumberOfProvider = _context.Vivslogins.Where(r => r.Rolesid == 2).Count();
             ViewBag.NumberOfResevar = _context.Vivslogins.Where(r => r.Rolesid == 3).Count();
-
             ViewBag.AllPost = _context.Vivsposts.Select(b => b.Postid).Count();
-
-
             return View();
         }
         ///////////////////////////////////////////////////////////////////////////////////////
