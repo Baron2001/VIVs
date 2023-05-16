@@ -95,9 +95,17 @@ namespace VIVs.Controllers
             return View(vivscontactu);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Post()
         {
-            return View();
+            var AboutUs = _context.Vivsaboutus.FirstOrDefault();
+            var Contact = _context.Vivscontactus.FirstOrDefault();
+            var Categories = _context.Vivscategories.FirstOrDefault();
+            var Home = _context.Vivshomes.FirstOrDefault();
+            var Post = _context.Vivsposts.ToList();
+            var City = _context.Vivscities.ToList();
+            var Users = _context.Vivsusers.ToList();
+            var model3 = Tuple.Create<Vivsaboutu, Vivscontactu, Vivscategory, Vivshome, IEnumerable<Vivspost>, IEnumerable<Vivscity>, IEnumerable<Vivsuser>>(AboutUs, Contact, Categories, Home, Post, City, Users);
+            return View(model3);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
