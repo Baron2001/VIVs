@@ -25,6 +25,7 @@ namespace VIVs.Controllers
         }
         public IActionResult Index()
         {
+            //
             ViewBag.ReceiverId = HttpContext.Session.GetInt32("ReceiverId");
             ViewBag.ReceiverName = HttpContext.Session.GetString("ReceiverName");
             if (HttpContext.Session.GetString("ReceiverImage") != null)
