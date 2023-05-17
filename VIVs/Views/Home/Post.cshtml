@@ -153,7 +153,7 @@
                                                     <a onclick="myFunction()" class="btn btn-primary " style="margin-top:5px;">Book</a>
 
 
-                                                    <a class="btn btn-success myDIV" asp-action="BookCreate" asp-controller="Home" style="display:none"><b><i class="fa-sharp fa-solid fa-badge-check"></i> Click Here to Confirm booking: <br /> </b>@item.Users.Phonenumber</a>
+                                                    <a class="btn btn-success myDIV" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none"><b><i class="fa-sharp fa-solid fa-badge-check"></i> Click Here to Confirm booking: <br /> </b>@item.Users.Phonenumber</a>
 
                                                 }
                                                 else
@@ -282,7 +282,7 @@
                                             {
                                                 @if (@item.Numberofitem > 0)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-primary " style="margin-top:5px;">
+                                                    <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
                                                         Booking
                                                     </a>
                                                 }
@@ -381,7 +381,7 @@
                                             {
                                                 @if (@item.Numberofitem > 0)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-primary " style="margin-top:5px;">
+                                                    <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
                                                         Booking
                                                     </a>
                                                 }
@@ -479,7 +479,7 @@
                                             {
                                                 @if (@item.Numberofitem > 0)
                                                 {
-                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-primary " style="margin-top:5px;">
+                                                    <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
                                                         Booking
                                                     </a>
                                                 }

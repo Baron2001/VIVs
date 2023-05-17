@@ -114,7 +114,7 @@ namespace VIVs.Controllers
             return View(model3);
         }
 
-        public async Task<IActionResult> BookCreate(decimal postId )
+        public async Task<IActionResult> BookCreate(decimal id)
         {
             //Bookid
             //Booktime  
@@ -123,7 +123,7 @@ namespace VIVs.Controllers
             //Post
             //User
             Vivsbooking vivsbooking =new Vivsbooking();
-            var PostList = _context.Vivsposts.Include(v => v.Users).Where(p => p.Postid == postId && p.Numberofitem > 0 && p.Deadline >=DateTime.Now).FirstOrDefault();
+            var PostList = _context.Vivsposts.Include(v => v.Users).Where(p => p.Postid == id && p.Numberofitem > 0 && p.Deadline >=DateTime.Now).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
@@ -134,9 +134,10 @@ namespace VIVs.Controllers
                     if (PostList != null)
                     {
                         vivsbooking.Booktime= DateTime.Now;
-                        vivsbooking.Postid=postId;
+                        vivsbooking.Postid= id;
                         vivsbooking.Userid = HttpContext.Session.GetInt32("ReceiverId");
                         PostList.Numberofitem -= 1;
+                        PostList.Isdeleted = false;
                         _context.Update(PostList);
                         await _context.SaveChangesAsync();
                         _context.Add(vivsbooking);

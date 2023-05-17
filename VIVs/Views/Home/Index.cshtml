@@ -515,7 +515,7 @@
                            {
                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
                                {
-                                   <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
+                                   <a  asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
                                        Book
                                    </a>
                                }
