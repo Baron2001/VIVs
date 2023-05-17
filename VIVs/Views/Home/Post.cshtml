@@ -96,7 +96,7 @@
                                             </div>
                                             <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
                                             <h4>@item.Users.Fullname</h4>
-                                            <span id="phoneNumber" style="display: none;"><b>Phone: </b>@item.Users.Phonenumber</span>
+
                                             @{
                                                 switch (@item.Users.Cityid)
                                                 {
@@ -149,11 +149,12 @@
                                             {
                                                 @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                    <a onclick="togglePhoneNumber()" class="btn btn-primary" style="margin-top: 5px;">Book</a>
+                                                
+                                                    <a onclick="myFunction()" class="btn btn-primary " style="margin-top:5px;">Book</a>
 
-                                                    @*  <a asp-action="BookCreate" asp-controller="Home"  class="btn btn-primary " style="margin-top:5px;">
-                                    Book
-                                    </a>*@
+
+                                                    <a class="btn btn-success myDIV" asp-action="BookCreate" asp-controller="Home" style="display:none"><b><i class="fa-sharp fa-solid fa-badge-check"></i> Click Here to Confirm booking: <br /> </b>@item.Users.Phonenumber</a>
+
                                                 }
                                                 else
                                                 {
@@ -183,12 +184,27 @@
                                 }
                             }
                             <script>
-                                function togglePhoneNumber() {
-                                    var phoneNumber = document.getElementById('phoneNumber');
-                                    if (phoneNumber.style.display === 'none') {
-                                        phoneNumber.style.display = 'inline';
-                                    } else {
-                                        phoneNumber.style.display = 'none';
+
+                                //function myFunction() {
+                                //    var x = document.getElementById("myDIV");
+                                //    if (x.style.display === "none") {
+                                //        x.style.display = "block";
+                                //    } else {
+                                //        x.style.display = "none";
+                                //    }
+                                //}
+
+                                function myFunction() {
+                                    var elements = document.getElementsByClassName("myDIV");
+
+                                    for (var i = 0; i < elements.length; i++) {
+                                        var x = elements[i];
+
+                                        if (x.style.display === "none") {
+                                            x.style.display = "block";
+                                        } else {
+                                            x.style.display = "none";
+                                        }
                                     }
                                 }
                             </script>
