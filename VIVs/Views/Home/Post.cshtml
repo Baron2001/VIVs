@@ -94,9 +94,7 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
-                                            <h4>@item.Users.Fullname</h4>
-
+                                            <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
                                             @{
                                                 switch (@item.Users.Cityid)
                                                 {
@@ -139,9 +137,19 @@
                                                     default: break;
                                                 }
                                             }
+                                            
+                                            	<span>
+                                            		<b>Type: </b>Medical Clinics
+                                            	</span>
+                                            </dis>
+                                            <br/>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
+                                            <h4>@item.Users.Fullname</h4>
+
+
 
                                             <span><b>/ </b>@item.Users.Address</span>
-                                            <span><b>Type: </b>Medical Clinics</span>
+                                            
                                             <span><b>Deadline: </b>@item.Deadline</span>
 
                                             <br />
@@ -214,9 +222,7 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
-                                            <h4>@item.Users.Fullname</h4>
-                                            <span id="phoneNumber" style="display: none;"><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
                                             @{
                                                 switch (@item.Users.Cityid)
                                                 {
@@ -259,10 +265,19 @@
                                                     default: break;
                                                 }
                                             }
+                                            
+                                            	<span>
+                                            		<b>Type: </b>Pharmacies
+                                            	</span>
+                                            </dis>
+                                            <br/>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span id="phoneNumber" style="display: none;"><b>Phone: </b>@item.Users.Phonenumber</span>
+
 
                                             <span><b>/ </b>@item.Users.Address</span>
-                                            <span><b>Type: </b>Medical Clinics</span>
-                                            <span>Pharmacies</span>
+                                            <span><b>Deadline: </b>@item.Deadline</span>
                                             <br />
                                             @if (@name != null)
                                             {
@@ -315,9 +330,7 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  style="margin: 0 auto; width: 100px; height: 100px;" alt="">
-                                            <h4>@item.Users.Fullname</h4>
-                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
                                             @{
                                                 switch (@item.Users.Cityid)
                                                 {
@@ -360,10 +373,17 @@
                                                     default: break;
                                                 }
                                             }
-
-                                            <span><b>/ </b>@item.Users.Address</span>
-                                            <span><b>Type: </b>Medical Clinics</span>
-                                            <span>Restaurants</span>
+                                            
+                                            	<span>
+                                            		<b>Type: </b>Restaurants
+                                            	</span>
+                                            </dis>
+                                            <br/>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  style="margin: 0 auto; width: 100px; height: 100px;" alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            <span><b>Address </b>@item.Users.Address</span>
+                                           <span><b>Deadline: </b>@item.Deadline</span>
                                             <br />
                                             @if (@name != null)
                                             {
@@ -415,10 +435,9 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
-                                            <h4>@item.Users.Fullname</h4>
-                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
-                                            @{
+                                            <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
+                                            	<span>
+                                            		@{
                                                 switch (@item.Users.Cityid)
                                                 {
                                                     case 1:
@@ -460,10 +479,17 @@
                                                     default: break;
                                                 }
                                             }
-
-                                            <span><b>/ </b>@item.Users.Address</span>
-                                            <span><b>Type: </b>Medical Clinics</span>
-                                            <span>Other Services</span>
+                                            	</span>
+                                            	<span>
+                                            		<b>Type: </b>Other Services
+                                            	</span>
+                                            </dis>
+                                            <br/>
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
+                                            <h4>@item.Users.Fullname</h4>
+                                            <span><b>Phone: </b>@item.Users.Phonenumber</span>
+                                            <span><b>Address </b>@item.Users.Address</span>
+                                            <span><b>Deadline: </b>@item.Deadline</span>
                                             <br />
                                             @if (@name != null)
                                             {
