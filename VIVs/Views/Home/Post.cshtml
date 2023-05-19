@@ -87,7 +87,7 @@
                                         <div class="testimonial-item">
                                             <div class="testimonial-text border rounded p-4 pt-5 mb-5">
                                                 <div class="btn-square bg-white border rounded-circle" style="display:grid;">
-                                                    @*<i class="fa fa-quote-right fa-2x text-primary"></i>*@
+                                                  
                                                     <div><b>@item.Numberofitem</b></div>
                                                     <p>Items</p>
                                                 </div>
@@ -147,14 +147,14 @@
                                             <br />
                                             @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                           
+                                                @if (item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                
-                                                    <a onclick="myFunction()" class="btn btn-primary " style="margin-top:5px;">Book</a>
+                                                    <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
-
-                                                    <a class="btn btn-success myDIV" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none"><b><i class="fa-sharp fa-solid fa-badge-check"></i> Click Here to Confirm booking: <br /> </b>@item.Users.Phonenumber</a>
-
+                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                        <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
+                                                    </a>
                                                 }
                                                 else
                                                 {
@@ -184,27 +184,13 @@
                                 }
                             }
                             <script>
+                               function myFunction(postId) {
+                                    var element = document.getElementById("myDIV-" + postId);
 
-                                //function myFunction() {
-                                //    var x = document.getElementById("myDIV");
-                                //    if (x.style.display === "none") {
-                                //        x.style.display = "block";
-                                //    } else {
-                                //        x.style.display = "none";
-                                //    }
-                                //}
-
-                                function myFunction() {
-                                    var elements = document.getElementsByClassName("myDIV");
-
-                                    for (var i = 0; i < elements.length; i++) {
-                                        var x = elements[i];
-
-                                        if (x.style.display === "none") {
-                                            x.style.display = "block";
-                                        } else {
-                                            x.style.display = "none";
-                                        }
+                                    if (element.style.display === "none") {
+                                        element.style.display = "block";
+                                    } else {
+                                        element.style.display = "none";
                                     }
                                 }
                             </script>
@@ -280,10 +266,12 @@
                                             <br />
                                             @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0)
+                                             @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                    <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
-                                                        Booking
+                                                   <a  onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
+
+                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                        <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
                                                 }
                                                 else
@@ -327,7 +315,7 @@
                                                 <b>@item.Description</b>
 
                                             </div>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  style="margin: 0 auto; width: 100px; height: 100px;" alt="">
                                             <h4>@item.Users.Fullname</h4>
                                             <span><b>Phone: </b>@item.Users.Phonenumber</span>
                                             @{
@@ -379,10 +367,12 @@
                                             <br />
                                             @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0)
+                                               @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                    <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
-                                                        Booking
+                                                  <a   onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
+
+                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                        <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
                                                 }
                                                 else
@@ -477,10 +467,12 @@
                                             <br />
                                             @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0)
+                                             @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                    <a asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
-                                                        Booking
+                                                   <a  onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
+
+                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                        <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
                                                 }
                                                 else
