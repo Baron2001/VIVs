@@ -145,7 +145,7 @@ namespace VIVs.Controllers
                 
                 await _context.SaveChangesAsync();
                 SendEmail(userList.Email, "Accept");
-                return RedirectToAction("ProviderRequests", "Dashboard");
+                return RedirectToAction("ProviderArchive", "Dashboard");
             }
             return View();
         }
@@ -165,7 +165,7 @@ namespace VIVs.Controllers
                 _context.Update(vivsuser);
                 await _context.SaveChangesAsync();
                 SendEmail(userList.Email, "Reject");
-                return RedirectToAction("ProviderRequests", "Dashboard");
+                return RedirectToAction("ProviderArchive", "Dashboard");
             }
             return View();
         }
@@ -198,7 +198,7 @@ namespace VIVs.Controllers
                 _context.Update(vivsuser);
                 await _context.SaveChangesAsync();
                 SendEmail(userList.Email, "Accept");
-                return RedirectToAction("ReceiverRequests", "Dashboard");
+                return RedirectToAction("ReceiverArchive", "Dashboard");
             }
             return View();
         }
@@ -218,7 +218,7 @@ namespace VIVs.Controllers
                 _context.Update(vivsuser);
                 await _context.SaveChangesAsync();
                 SendEmail(userList.Email, "Reject");
-                return RedirectToAction("ReceiverRequests", "Dashboard");
+                return RedirectToAction("ReceiverArchive", "Dashboard");
             }
             return View();
         }

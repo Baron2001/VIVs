@@ -47,7 +47,7 @@ namespace VIVs.Controllers
             var cat = _context.Vivscategories.FirstOrDefault();
             var AboutUs = _context.Vivsaboutus.FirstOrDefault();
             var ContactUs = _context.Vivscontactus.ToList();
-            var post = _context.Vivsposts.Include(v => v.Users).Where(a => a.Numberofitem > 0 && a.Deadline >= DateTime.Now).ToList();
+            var post = _context.Vivsposts.Include(v => v.Users).Where(a => a.Numberofitem > 0 && a.Deadline >= DateTime.Now && a.Isdeleted == false).ToList();
             var Post = post.Take(6).ToList();
             var model = Tuple.Create<Vivshome, Vivscategory, Vivsaboutu, IEnumerable<Vivscontactu>, IEnumerable<Vivspost>>(Home, cat, AboutUs, ContactUs, Post);
             return View(model);
@@ -81,7 +81,7 @@ namespace VIVs.Controllers
             var cat = _context.Vivscategories.FirstOrDefault();
             var AboutUs = _context.Vivsaboutus.FirstOrDefault();
             var ContactUs = _context.Vivscontactus.ToList();
-            var post = _context.Vivsposts.Include(v => v.Users).Where(a => a.Numberofitem > 0 && a.Deadline >= DateTime.Now).ToList();
+            var post = _context.Vivsposts.Include(v => v.Users).Where(a => a.Numberofitem > 0 && a.Deadline >= DateTime.Now && a.Isdeleted == false).ToList();
             var Post = post.Take(6).ToList();
             var model = Tuple.Create<Vivshome, Vivscategory, Vivsaboutu, IEnumerable<Vivscontactu>, IEnumerable<Vivspost>>(Home, cat, AboutUs, ContactUs, Post);
             return View(model);
@@ -184,10 +184,10 @@ namespace VIVs.Controllers
             }
             ViewBag.ReceiverEmail = HttpContext.Session.GetString("ReceiverEmail");
             
-            var Medical = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid ==1).ToList();
-            var Pharmacies = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 3).ToList();
-            var Restaurants = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 2).ToList();
-            var Other = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 4).ToList();
+            var Medical = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid ==1 && c.Isdeleted == false).ToList();
+            var Pharmacies = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 3 && c.Isdeleted == false).ToList();
+            var Restaurants = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 2 && c.Isdeleted == false).ToList();
+            var Other = _context.Vivsposts.Include(v => v.Users).Where(c => c.Users.Categorytypeid == 4 && c.Isdeleted == false).ToList();
             var model3 = Tuple.Create< IEnumerable<Vivspost>, IEnumerable<Vivspost>, IEnumerable<Vivspost>, IEnumerable<Vivspost>>(Medical, Pharmacies, Restaurants, Other);
             return View(model3);
         }
