@@ -515,9 +515,24 @@
                            {
                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
                                {
-                                   <a  asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
+                                   <a  asp-action="BookCreateHome" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
                                        Book
                                    </a>
+@*                                    @if (@ViewBag.messageBookingHomebefore != null && @ViewBag.messageBookingHomebefore == "you have booked this item before" )
+                                    {
+                                    <script>
+                                        alert("you have booked this item before")
+                                        </script>
+  
+                                    }
+                                    else if (@ViewBag.messageBookingHomeDone != null &&@ViewBag.messageBookingHomeDone =="you Book Is Done")
+                                    {
+                                        <script>
+                                            alert("you Book Is Done")
+                                        </script>
+                                    }
+                                    else
+                                    { }*@
                                }
                                else
                                {

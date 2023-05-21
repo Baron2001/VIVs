@@ -159,6 +159,27 @@
                                                     <a class="btn btn btn-primary myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none ;background-color: #00B98E">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
+                                                    @*@if (@ViewBag.messageBooking != null)
+                                                    { 
+                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                    }*@
+                                                    @if (@ViewBag.messageBooking != null && @ViewBag.messageBooking == "you have booked this item before" )
+                                                    {
+                                                        <script>
+                                                            alert("you have booked this item before")
+                                                        </script>
+  
+                                                    }
+                                                    else if (@ViewBag.messageBookingpostDone != null &&@ViewBag.messageBookingpostDone =="you Book Is Done")
+                                                    {
+                                                        <script>
+                                                            alert("you Book Is Done")
+                                                        </script>
+                                                    }
+                                                    else
+                                                    { }
+
+
                                                 }
                                                 else
                                                 {
@@ -285,6 +306,10 @@
                                                     <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
+                                                    @if (@ViewBag.messageBooking != null)
+                                                    { 
+                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -392,6 +417,10 @@
                                                     <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
+                                                    @if (@ViewBag.messageBooking != null)
+                                                    { 
+                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -499,6 +528,10 @@
                                                     <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
+                                                    @if (@ViewBag.messageBooking != null)
+                                                    { 
+                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                    }
                                                 }
                                                 else
                                                 {
