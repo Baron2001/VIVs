@@ -37,7 +37,7 @@
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
         <div class="container">
             <h1 class="display-3 mb-4  slideInDown"> Posts</h1>
-            
+
         </div>
     </div>
 
@@ -81,7 +81,7 @@
                                         <div class="testimonial-item">
                                             <div class="testimonial-text border rounded p-4 pt-5 mb-5">
                                                 <div class="btn-square bg-white border rounded-circle" style="display:grid;">
-                                                  
+
                                                     <div><b>@item.Numberofitem</b></div>
                                                     <p>Items</p>
                                                 </div>
@@ -89,69 +89,68 @@
 
                                             </div>
                                             <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
-                                            @{
-                                                switch (@item.Users.Cityid)
-                                                {
-                                                    case 1:
+                                                @{
+                                                    switch (@item.Users.Cityid)
+                                                    {
+                                                        case 1:
                                                             <span><b style="color:#00B98E !important">City: </b>Amman</span>
-                                                        break;
-                                                    case 2:
+                                                            break;
+                                                        case 2:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Irbid</span> </text>
-                                                        break;
-                                                    case 3:
+                                                            break;
+                                                        case 3:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Zarqa</span> </text>
-                                                        break;
-                                                    case 4:
+                                                            break;
+                                                        case 4:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Al-Karak</span> </text>
-                                                        break;
-                                                    case 5:
+                                                            break;
+                                                        case 5:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Aqaba</span> </text>
-                                                        break;
-                                                    case 6:
+                                                            break;
+                                                        case 6:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Mafraq</span> </text>
-                                                        break;
-                                                    case 7:
+                                                            break;
+                                                        case 7:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Madaba</span> </text>
-                                                        break;
-                                                    case 8:
+                                                            break;
+                                                        case 8:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Al-Balqa</span> </text>
-                                                        break;
-                                                    case 9:
+                                                            break;
+                                                        case 9:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Ma'an</span></text>
-                                                        break;
-                                                    case 10:
+                                                            break;
+                                                        case 10:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Tafilah</span> </text>
-                                                        break;
-                                                    case 11:
+                                                            break;
+                                                        case 11:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Jerash</span> </text>
-                                                        break;
-                                                    case 12:
+                                                            break;
+                                                        case 12:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Ajloun</span> </text>
-                                                        break;
-                                                    default: break;
+                                                            break;
+                                                        default: break;
+                                                    }
                                                 }
-                                            }
-                                            
-                                            	<span>
-                                            		<b style="color:#00B98E !important">Type: </b>Medical Clinics
-                                            	</span>
+
+                                                <span>
+                                                    <b style="color:#00B98E !important">Type: </b>Medical Clinics
+                                                </span>
                                             </dis>
-                                            <br/>
+                                            <br />
                                             <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
                                             <h4>@item.Users.Fullname</h4>
 
 
 
-                                           
-                                            
+
+
                                             <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
                                             <br>
-                                             <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
+                                            <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
 
                                             <br />
                                             @if (@name != null)
                                             {
-                                           
                                                 @if (item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
                                                     <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
@@ -159,23 +158,32 @@
                                                     <a class="btn btn btn-primary myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none ;background-color: #00B98E">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
-                                                    @*@if (@ViewBag.messageBooking != null)
-                                                    { 
-                                                        <p style="color:red">@ViewBag.messageBooking</p>
-                                                    }*@
-                                                    @if (@ViewBag.messageBooking != null && @ViewBag.messageBooking == "you have booked this item before" )
+
+                                                    @if (@ViewBag.messageBooking != null && @ViewBag.messageBooking == "you have booked this item before")
                                                     {
                                                         <script>
-                                                            alert("you have booked this item before")
+                                                            if (!localStorage.getItem('bookedBeforeAlertShown')) {
+                                                                alert("you have booked this item before");
+                                                                localStorage.setItem('bookedBeforeAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookedBeforeAlertShown');
+                                                            }
                                                         </script>
-  
                                                     }
-                                                    else if (@ViewBag.messageBookingpostDone != null &&@ViewBag.messageBookingpostDone =="you Book Is Done")
+                                                    else if (@ViewBag.messageBookingpostDone != null && @ViewBag.messageBookingpostDone == "you Book Is Done")
                                                     {
                                                         <script>
-                                                            alert("you Book Is Done")
+                                                            if (!localStorage.getItem('bookDoneAlertShown')) {
+                                                                alert("you Book Is Done");
+                                                                localStorage.setItem('bookDoneAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookDoneAlertShown');
+                                                            }
                                                         </script>
                                                     }
+
                                                     else
                                                     { }
 
@@ -209,7 +217,7 @@
                                 }
                             }
                             <script>
-                               function myFunction(postId) {
+                                function myFunction(postId) {
                                     var element = document.getElementById("myDIV-" + postId);
 
                                     if (element.style.display === "none") {
@@ -240,74 +248,74 @@
 
                                             </div>
                                             <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
-                                            @{
-                                                switch (@item.Users.Cityid)
-                                                {
-                                                  case 1:
+                                                @{
+                                                    switch (@item.Users.Cityid)
+                                                    {
+                                                        case 1:
                                                             <span><b style="color:#00B98E !important">City: </b>Amman</span>
-                                                        break;
-                                                    case 2:
+                                                            break;
+                                                        case 2:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Irbid</span> </text>
-                                                        break;
-                                                    case 3:
+                                                            break;
+                                                        case 3:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Zarqa</span> </text>
-                                                        break;
-                                                    case 4:
+                                                            break;
+                                                        case 4:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Al-Karak</span> </text>
-                                                        break;
-                                                    case 5:
+                                                            break;
+                                                        case 5:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Aqaba</span> </text>
-                                                        break;
-                                                    case 6:
+                                                            break;
+                                                        case 6:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Mafraq</span> </text>
-                                                        break;
-                                                    case 7:
+                                                            break;
+                                                        case 7:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Madaba</span> </text>
-                                                        break;
-                                                    case 8:
+                                                            break;
+                                                        case 8:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Al-Balqa</span> </text>
-                                                        break;
-                                                    case 9:
+                                                            break;
+                                                        case 9:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Ma'an</span></text>
-                                                        break;
-                                                    case 10:
+                                                            break;
+                                                        case 10:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Tafilah</span> </text>
-                                                        break;
-                                                    case 11:
+                                                            break;
+                                                        case 11:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Jerash</span> </text>
-                                                        break;
-                                                    case 12:
+                                                            break;
+                                                        case 12:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Ajloun</span> </text>
-                                                        break;
-                                                    default: break;
+                                                            break;
+                                                        default: break;
+                                                    }
                                                 }
-                                            }
-                                            
-                                            	<span>
-                                            		<b style="color:#00B98E !important">Type: </b>Pharmacies
-                                            	</span>
+
+                                                <span>
+                                                    <b style="color:#00B98E !important">Type: </b>Pharmacies
+                                                </span>
                                             </dis>
-                                            <br/>
+                                            <br />
                                             <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
                                             <h4>@item.Users.Fullname</h4>
-                                            
 
 
-                                               <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
+
+                                            <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
                                             <br>
-                                             <span><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
+                                            <span><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
                                             <br />
                                             @if (@name != null)
                                             {
-                                             @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                   <a  onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
+                                                    <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
                                                     <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
                                                     @if (@ViewBag.messageBooking != null)
-                                                    { 
+                                                    {
                                                         <p style="color:red">@ViewBag.messageBooking</p>
                                                     }
                                                 }
@@ -353,72 +361,72 @@
 
                                             </div>
                                             <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
-                                            @{
-                                                switch (@item.Users.Cityid)
-                                                {
-                                                    case 1:
+                                                @{
+                                                    switch (@item.Users.Cityid)
+                                                    {
+                                                        case 1:
                                                             <span><b style="color:#00B98E !important">City: </b>Amman</span>
-                                                        break;
-                                                    case 2:
+                                                            break;
+                                                        case 2:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Irbid</span> </text>
-                                                        break;
-                                                    case 3:
+                                                            break;
+                                                        case 3:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Zarqa</span> </text>
-                                                        break;
-                                                    case 4:
+                                                            break;
+                                                        case 4:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Al-Karak</span> </text>
-                                                        break;
-                                                    case 5:
+                                                            break;
+                                                        case 5:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Aqaba</span> </text>
-                                                        break;
-                                                    case 6:
+                                                            break;
+                                                        case 6:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Mafraq</span> </text>
-                                                        break;
-                                                    case 7:
+                                                            break;
+                                                        case 7:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Madaba</span> </text>
-                                                        break;
-                                                    case 8:
+                                                            break;
+                                                        case 8:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Al-Balqa</span> </text>
-                                                        break;
-                                                    case 9:
+                                                            break;
+                                                        case 9:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Ma'an</span></text>
-                                                        break;
-                                                    case 10:
+                                                            break;
+                                                        case 10:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Tafilah</span> </text>
-                                                        break;
-                                                    case 11:
+                                                            break;
+                                                        case 11:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Jerash</span> </text>
-                                                        break;
-                                                    case 12:
+                                                            break;
+                                                        case 12:
                                                             <text> <span><b style="color:#00B98E !important">City: </b>Ajloun</span> </text>
-                                                        break;
-                                                    default: break;
+                                                            break;
+                                                        default: break;
+                                                    }
                                                 }
-                                            }
-                                            
-                                            	<span>
-                                            		<b style="color:#00B98E !important">Type: </b>Restaurants
-                                            	</span>
+
+                                                <span>
+                                                    <b style="color:#00B98E !important">Type: </b>Restaurants
+                                                </span>
                                             </dis>
-                                            <br/>
-                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)"  style="margin: 0 auto; width: 100px; height: 100px;" alt="">
+                                            <br />
+                                            <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
                                             <h4>@item.Users.Fullname</h4>
-                                            
-                                               <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
+
+                                            <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
                                             <br>
-                                             <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
+                                            <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
                                             <br />
                                             @if (@name != null)
                                             {
-                                               @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                  <a   onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
+                                                    <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
                                                     <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
                                                     @if (@ViewBag.messageBooking != null)
-                                                    { 
+                                                    {
                                                         <p style="color:red">@ViewBag.messageBooking</p>
                                                     }
                                                 }
@@ -463,73 +471,73 @@
 
                                             </div>
                                             <dis style="display: flex;justify-content: space-between; flex-direction: row-reverse;">
-                                            	<span>
-                                            		@{
-                                                switch (@item.Users.Cityid)
-                                                {
-                                                    case 1:
-                                                            <span><b style="color:#00B98E !important">City: </b>Amman</span>
-                                                        break;
-                                                    case 2:
-                                                            <text> <span><b>City: </b>Irbid</span> </text>
-                                                        break;
-                                                    case 3:
-                                                            <text> <span><b>City: </b>Zarqa</span> </text>
-                                                        break;
-                                                    case 4:
-                                                            <text> <span><b>City: </b>Al-Karak</span> </text>
-                                                        break;
-                                                    case 5:
-                                                            <text> <span><b>City: </b>Aqaba</span> </text>
-                                                        break;
-                                                    case 6:
-                                                            <text> <span><b>City: </b>Mafraq</span> </text>
-                                                        break;
-                                                    case 7:
-                                                            <text> <span><b>City: </b>Madaba</span> </text>
-                                                        break;
-                                                    case 8:
-                                                            <text> <span><b>City: </b>Al-Balqa</span> </text>
-                                                        break;
-                                                    case 9:
-                                                            <text> <span><b>City: </b>Ma'an</span></text>
-                                                        break;
-                                                    case 10:
-                                                            <text> <span><b>City: </b>Tafilah</span> </text>
-                                                        break;
-                                                    case 11:
-                                                            <text> <span><b>City: </b>Jerash</span> </text>
-                                                        break;
-                                                    case 12:
-                                                            <text> <span><b>City: </b>Ajloun</span> </text>
-                                                        break;
-                                                    default: break;
-                                                }
-                                            }
-                                            	</span>
-                                            	<span>
-                                            		<b style="color:#00B98E !important">Type: </b>Other Services
-                                            	</span>
+                                                <span>
+                                                    @{
+                                                        switch (@item.Users.Cityid)
+                                                        {
+                                                            case 1:
+                                                                <span><b style="color:#00B98E !important">City: </b>Amman</span>
+                                                                break;
+                                                            case 2:
+                                                                <text> <span><b>City: </b>Irbid</span> </text>
+                                                                break;
+                                                            case 3:
+                                                                <text> <span><b>City: </b>Zarqa</span> </text>
+                                                                break;
+                                                            case 4:
+                                                                <text> <span><b>City: </b>Al-Karak</span> </text>
+                                                                break;
+                                                            case 5:
+                                                                <text> <span><b>City: </b>Aqaba</span> </text>
+                                                                break;
+                                                            case 6:
+                                                                <text> <span><b>City: </b>Mafraq</span> </text>
+                                                                break;
+                                                            case 7:
+                                                                <text> <span><b>City: </b>Madaba</span> </text>
+                                                                break;
+                                                            case 8:
+                                                                <text> <span><b>City: </b>Al-Balqa</span> </text>
+                                                                break;
+                                                            case 9:
+                                                                <text> <span><b>City: </b>Ma'an</span></text>
+                                                                break;
+                                                            case 10:
+                                                                <text> <span><b>City: </b>Tafilah</span> </text>
+                                                                break;
+                                                            case 11:
+                                                                <text> <span><b>City: </b>Jerash</span> </text>
+                                                                break;
+                                                            case 12:
+                                                                <text> <span><b>City: </b>Ajloun</span> </text>
+                                                                break;
+                                                            default: break;
+                                                        }
+                                                    }
+                                                </span>
+                                                <span>
+                                                    <b style="color:#00B98E !important">Type: </b>Other Services
+                                                </span>
                                             </dis>
-                                            <br/>
+                                            <br />
                                             <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" alt="">
                                             <h4>@item.Users.Fullname</h4>
-                                           
-                                               <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
+
+                                            <span><b style="color:#00B98E !important">Deadline: </b>@item.Deadline</span>
                                             <br>
-                                             <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
+                                            <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
                                             <br />
                                             @if (@name != null)
                                             {
-                                             @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
-                                                   <a  onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
+                                                    <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
                                                     <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
                                                     @if (@ViewBag.messageBooking != null)
-                                                    { 
+                                                    {
                                                         <p style="color:red">@ViewBag.messageBooking</p>
                                                     }
                                                 }
