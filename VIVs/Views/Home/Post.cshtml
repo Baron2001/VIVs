@@ -137,9 +137,16 @@
                                                 </span>
                                             </dis>
                                             <br />
+                                            
+                                            @if (item.Users.Image==null)
+                                           {
+                                                <img class="rounded-circle mb-3" src="@Url.Content("~/img/establishment.jpg")" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
+                                             <h4>@item.Users.Fullname</h4>
+                                           }
+                                           else{
                                             <img class="rounded-circle mb-3" src="@Url.Content("~/Images/"+@item.Users.Image)" style="margin: 0 auto; width: 100px; height: 100px;" alt="">
                                             <h4>@item.Users.Fullname</h4>
-
+                                           }
 
 
 
