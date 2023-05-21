@@ -418,39 +418,39 @@
         <div class="row g-4">
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item">
-                    <img class="img-fluid rounded" src="~/img/team-1.jpg" alt="">
+                    <img class="img-fluid rounded" src="~/img/team-1.jpg" alt="" style=" height:407.99px;width:511.35px;">
                     <div class="team-text">
-                        <h4 class="mb-0">Kate Winslet</h4>
+                        <h4 class="mb-0">Dareen M. Khader</h4>
                         <div class="team-social d-flex">
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="team-item">
-                    <img class="img-fluid rounded" src="~/img/team-2.jpg" alt="">
+                    <img class="img-fluid rounded" src="~/img/team-2.jpg" alt="" style=" height:407.99px;width:511.35px;">
                     <div class="team-text">
-                        <h4 class="mb-0">Jac Jacson</h4>
+                        <h4 class="mb-0">Faizah Mustafa</h4>
                         <div class="team-social d-flex">
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="team-item">
-                    <img class="img-fluid rounded" src="~/img/team-3.jpg" alt="">
+                    <img class="img-fluid rounded" src="~/img/team-3.jpg" alt="" style=" height:407.99px;width:511.35px;">
                     <div class="team-text">
-                        <h4 class="mb-0">Doris Jordan</h4>
+                        <h4 class="mb-0">Lena Attoun</h4>
                         <div class="team-social d-flex">
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square rounded-circle mx-1" ><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -488,25 +488,25 @@
                                 {
                                     case 1:
                                         // Use the text block below to separate html elements from code
-                                                            <span>Medical Clinics</span>
+                                                                    <span>Medical Clinics</span>
                                         //<text>
                                         //    <h1>Test Site</h1>
                                         //</text>
                                         break;  // Always break each case
                                     case 2:
-                                                   <text>
-                                                       <span>Restaurants</span>
-                                                   </text>
+                                                           <text>
+                                                               <span>Restaurants</span>
+                                                           </text>
                                         break;
                                     case 3:
-                                                   <text>
-                                                       <span>Pharmacies</span>
-                                                   </text>
+                                                           <text>
+                                                               <span>Pharmacies</span>
+                                                           </text>
                                         break;
                                     default:
-                                                   <text>
-                                                       <span>Other Volunteering Services</span>
-                                                   </text>
+                                                           <text>
+                                                               <span>Other Volunteering Services</span>
+                                                           </text>
                                         break;
                                 }
                             }
@@ -515,8 +515,8 @@
                            {
                                @if(@item.Numberofitem>0 && DateTime.Now <= item.Deadline)
                                {
-                                   <a  asp-action="BookCreateHome" asp-controller="Home" asp-route-id="@item.Postid" class="btn btn-primary " style="margin-top:5px;">
-                                       Book
+                                   <a  asp-action="Post" asp-controller="Home"  class="btn btn-primary " style="margin-top:5px;">
+                                       View More
                                    </a>
 @*                                    @if (@ViewBag.messageBookingHomebefore != null && @ViewBag.messageBookingHomebefore == "you have booked this item before" )
                                     {
