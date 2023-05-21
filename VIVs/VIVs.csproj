@@ -49,4 +49,8 @@
     <ProjectReference Include="..\EmailService\EmailService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Login-Register-assets\img\icons\flags\" />
+  </ItemGroup>
+
 </Project>
