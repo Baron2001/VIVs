@@ -305,19 +305,45 @@
                                             <br>
                                             <span><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
                                             <br />
-                                            @if (@name != null)
+                                          @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                @if (item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
                                                     <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
-                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                    <a class="btn btn btn-primary myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none ;background-color: #00B98E">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
-                                                    @if (@ViewBag.messageBooking != null)
+
+                                                    @if (@ViewBag.messageBooking != null && @ViewBag.messageBooking == "you have booked this item before")
                                                     {
-                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                        <script>
+                                                            if (!localStorage.getItem('bookedBeforeAlertShown')) {
+                                                                alert("you have booked this item before");
+                                                                localStorage.setItem('bookedBeforeAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookedBeforeAlertShown');
+                                                            }
+                                                        </script>
                                                     }
+                                                    else if (@ViewBag.messageBookingpostDone != null && @ViewBag.messageBookingpostDone == "you Book Is Done")
+                                                    {
+                                                        <script>
+                                                            if (!localStorage.getItem('bookDoneAlertShown')) {
+                                                                alert("you Book Is Done");
+                                                                localStorage.setItem('bookDoneAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookDoneAlertShown');
+                                                            }
+                                                        </script>
+                                                    }
+
+                                                    else
+                                                    { }
+
+
                                                 }
                                                 else
                                                 {
@@ -328,9 +354,18 @@
                                             }
                                             else
                                             {
-                                                <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
-                                                    Login For Booking
-                                                </a>
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
+                                                        Login For Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
                                             }
 
                                         </div>
@@ -416,19 +451,45 @@
                                             <br>
                                             <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
                                             <br />
-                                            @if (@name != null)
+                                          @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                @if (item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
                                                     <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
-                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                    <a class="btn btn btn-primary myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none ;background-color: #00B98E">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
-                                                    @if (@ViewBag.messageBooking != null)
+
+                                                    @if (@ViewBag.messageBooking != null && @ViewBag.messageBooking == "you have booked this item before")
                                                     {
-                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                        <script>
+                                                            if (!localStorage.getItem('bookedBeforeAlertShown')) {
+                                                                alert("you have booked this item before");
+                                                                localStorage.setItem('bookedBeforeAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookedBeforeAlertShown');
+                                                            }
+                                                        </script>
                                                     }
+                                                    else if (@ViewBag.messageBookingpostDone != null && @ViewBag.messageBookingpostDone == "you Book Is Done")
+                                                    {
+                                                        <script>
+                                                            if (!localStorage.getItem('bookDoneAlertShown')) {
+                                                                alert("you Book Is Done");
+                                                                localStorage.setItem('bookDoneAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookDoneAlertShown');
+                                                            }
+                                                        </script>
+                                                    }
+
+                                                    else
+                                                    { }
+
+
                                                 }
                                                 else
                                                 {
@@ -439,9 +500,18 @@
                                             }
                                             else
                                             {
-                                                <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
-                                                    Login For Booking
-                                                </a>
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
+                                                        Login For Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
                                             }
 
                                         </div>
@@ -527,19 +597,45 @@
                                             <br>
                                             <span style="text-aligen"><b style="color:#00B98E !important">Address: </b>@item.Users.Address</span>
                                             <br />
-                                            @if (@name != null)
+                                           @if (@name != null)
                                             {
-                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                @if (item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
                                                 {
                                                     <a onclick="myFunction(@item.Postid)" class="btn btn-primary" style="margin-top:5px;">Book</a>
 
-                                                    <a class="btn btn-success myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none">
+                                                    <a class="btn btn btn-primary myDIV" id="myDIV-@item.Postid" asp-action="BookCreate" asp-controller="Home" asp-route-id="@item.Postid" style="display:none ;background-color: #00B98E">
                                                         <b> Click Here to Confirm booking:<i class="fa fa-check" aria-hidden="true"></i> <br /></b>@item.Users.Phonenumber
                                                     </a>
-                                                    @if (@ViewBag.messageBooking != null)
+
+                                                    @if (@ViewBag.messageBooking != null && @ViewBag.messageBooking == "you have booked this item before")
                                                     {
-                                                        <p style="color:red">@ViewBag.messageBooking</p>
+                                                        <script>
+                                                            if (!localStorage.getItem('bookedBeforeAlertShown')) {
+                                                                alert("you have booked this item before");
+                                                                localStorage.setItem('bookedBeforeAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookedBeforeAlertShown');
+                                                            }
+                                                        </script>
                                                     }
+                                                    else if (@ViewBag.messageBookingpostDone != null && @ViewBag.messageBookingpostDone == "you Book Is Done")
+                                                    {
+                                                        <script>
+                                                            if (!localStorage.getItem('bookDoneAlertShown')) {
+                                                                alert("you Book Is Done");
+                                                                localStorage.setItem('bookDoneAlertShown', 'true');
+                                                            }
+                                                            else {
+                                                                localStorage.removeItem('bookDoneAlertShown');
+                                                            }
+                                                        </script>
+                                                    }
+
+                                                    else
+                                                    { }
+
+
                                                 }
                                                 else
                                                 {
@@ -550,9 +646,18 @@
                                             }
                                             else
                                             {
-                                                <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
-                                                    Login For Booking
-                                                </a>
+                                                @if (@item.Numberofitem > 0 && DateTime.Now <= item.Deadline)
+                                                {
+                                                    <a asp-action="Login" asp-controller="Auth" class="btn btn-warning " style="margin-top:5px;">
+                                                        Login For Booking
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn btn-danger " style="margin-top:5px;">
+                                                        Out of Stock
+                                                    </a>
+                                                }
                                             }
 
                                         </div>
