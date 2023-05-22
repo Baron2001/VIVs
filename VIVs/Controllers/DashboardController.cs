@@ -377,7 +377,8 @@ namespace VIVs.Controllers
             if (status == "Accept")
             {
                 bodyBuilder.HtmlBody =
-                "<p>Your Account Status is: <b style=\"color:#7fb685\">Accept</b></p> ";
+                         "<p>Your Account Status is: <b style=\"color:#7fb685\">Accept</b></p>" +
+                "<p>You Can Login to Website From Here: <a href=\"http://www.VIVs.somee.com/Auth/Login\">www.VIVs.somee.com/Auth/Login</a></p>";
             }
             else if(status == "Reject")
             {
